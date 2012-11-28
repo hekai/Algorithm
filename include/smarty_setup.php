@@ -5,6 +5,7 @@ error_reporting(E_ALL | E_STRICT);
 
 define('SMARTY_DIR','/home/hacklu/smarty/libs/');
 define('SMARTY_WORK_DIR','/var/www/Algorithm/smarty/');
+define('CSS_DIR','/Algorithm/include/css/');
 
 //load smarty library
 require_once(SMARTY_DIR . 'Smarty.class.php');
@@ -23,22 +24,13 @@ class Algo extends Smarty {
 
 		$this->caching = Smarty::CACHING_LIFETIME_CURRENT;
 		$this->assign('app_name', 'Algorithm');
+		$this->assign('CSS_DIR',CSS_DIR);
 
 		$this->debugging = true;
+		$this->force_compile = true;
 	}
 }
 
 #echo "111";
-/*
-$smarty = new Smarty();
-#$smarty->debuging= true;
-$smarty->template_dir = '/home/USERNAME/smarty/templates';
-$smarty->compile_dir = '/home/USERNAME/smarty/templates_c';
-$smarty->cache_dir = '/home/USERNAME/smarty/cache';
-$smarty->config_dir = '/home/USERNAME/smarty/configs';
-
-$smarty->assign('test_var', 'It works!');
-$smarty->display('index.tpl');
- */
 ?>
 

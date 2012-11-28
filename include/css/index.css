@@ -1,0 +1,39 @@
+body{
+//	background:green;
+}
+div {
+//	border:1px solid red;
+	padding:0;
+	margin:0;
+}
+
+#header {
+	border:3px solid black;
+	height:8%;
+	width:100%;
+}
+
+#text {
+	float:right;
+	width:80%;
+	height:90%;
+}
+#left_rank {
+	float:left;
+	height:90%;
+	width:18%;
+}
+
+#top {
+	top:0px;
+	float:left;
+	min-height:30%;
+	width:100%;
+}
+
+#bottom_comment {
+	float:left;
+	min-height:30%;
+	width:100%;
+	}
+
