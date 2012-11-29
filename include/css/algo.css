@@ -72,6 +72,9 @@ a:hover {
 .problem_func {
 	float:right;
 }
+.s_txt0 {
+	color:#87BEDC;
+}
 .s_txt3 {
 	margin:0 6px 0 8px;
 	vertical-align:1px;
@@ -86,7 +89,7 @@ a:hover {
 	border-width:1px;
 	border-style:solid;
 	padding:10px 20px 10px;
-	border-radius:3px;
+	border-radius:9px;
 	line-height:20px;
 	margin:10px 0 0;
 //	display:none;
@@ -95,6 +98,7 @@ a:hover {
 	border-color:#d9d9d9;
 }
 .c_input {
+	border-radius:4px;
 	margin-top: 0px;
 	margin-left: 0px;
 	margin-bottom: 5px;
@@ -111,7 +115,7 @@ a:hover {
 	border-bottom-width: 1px;
 	border-right-style: solid;
 	border-right-width: 1px;
-	border-color:gray;
+	border-color:#CCCCCC;
 	font-size: 16px;
 	font-family:serif;
 	word-wrap: break-word;
@@ -140,7 +144,7 @@ a:hover {
 	padding:0 0 0 2px;
 	height:22px;
 	line-height:21px;
-	background-color:green;
+	background-color:#FFA00A;
 }
 
 .dl_comments {
@@ -149,6 +153,10 @@ a:hover {
 	border-width:1px 0 0;
 	border-style:solid;
 	zoom:1;
+}
+.no_border_line {
+	border-width:0;
+	padding:10px 0 0 0;
 }
 .dl_comments dt {
 	float:left;

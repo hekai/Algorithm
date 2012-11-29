@@ -1,5 +1,5 @@
-body{
-//	background:green;
+body {
+	background-image:url("../images/body_bg.jpg");
 }
 div {
 //	border:1px solid red;
@@ -9,31 +9,44 @@ div {
 
 a {
 	text-decoration:none;
+	color:#0A8CD2;
 }
 a:hover {
 	text-decoration:underline;
 }
 
 #header {
-	border:3px solid black;
-	height:5%;
+	//border:3px solid black;
+	height:40px
 	width:100%;
+	padding: 0 0 5px 0;
+	margin:0 0 15px 0;
 }
 .hello_world {
-	font-size:24px;
-	color:red;
+	font-size:22px;
+	color:black;
 }
 
 #text {
-	float:right;
-	width:80%;
-	height:90%;
+//	float:right;
+//	width:80%;
+//	height:90%;
+//	width:980px;
+	width:870px;
+	height:1024px;
+	margin:0 auto;
+	background-image:url("../images/repeat_bg_y.png");
+	background-repeat:repeat-y;
+	padding:0% 0 0 0;
+
 }
 #left_rank {
 	float:left;
-	height:90%;
-//	width:18%;
+	height:100%;
+	width:150px;
 	padding:1% 0 0 0;
+//	background-color:#F2F2F2;
+	overflow:hidden;
 }
 
 #top {
@@ -42,6 +55,8 @@ a:hover {
 	min-height:30%;
 	//width:100%;
 	padding:1% 0 0 0;
+	height:100%;
+	background-color:#FAFAFA;
 }
 
 #bottom_comment {
