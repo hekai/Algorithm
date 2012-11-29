@@ -1,0 +1,106 @@
+fieldset {
+	border-style:none;
+}
+#f_group {
+        border-width:1px;
+        border-color:#D9D9D9;
+//	background-color:#FAFAFA;
+	margin:0;
+	border-style:none;
+	border-bottom-style:solid;
+}
+
+.current {
+	background-color:#FFA00A;
+	
+	color:white;
+}
+
+.container {
+	margin:0px 0;
+	padding:0px 4px 4px 40%;
+}
+.container p {
+	float:left;
+	display:inline-block;
+	padding:0 8px;
+	margin:0;
+}
+
+#add_algo {
+	float:right;
+	margin:0 3% 0 0;
+	background-color:green;
+	color:white;
+	//height:24px;
+	//line-height:23px;
+	text-align:center;
+	font:normal;
+	background:url("../images/btn_p.png") no-repeat;
+	background-position:-133px -50px;
+	width:82;
+	height:30px;
+	display:inline-block;
+	outline-style:none;
+}
+#add_algo:hover  {
+	background-position:-217px -50px;
+}
+
+.week_rank {
+        border-width:1px;
+        border-color:#E3E3E3;
+//	background-color:#F2F2F2;
+	border-left-style:none;
+	border-right-style:solid;
+	border-right-width:2px;
+	border-bottom-style:solid;
+	margin:0;
+	padding:0 4px 0 0;
+}
+#left_rank span {
+	font-size:24px;
+	color:#333;
+	font-weight:bold;
+}
+#week_worst span {
+	font-size:24px;
+	color:#2b2b2b;
+}
+#week_best {
+	background-image:url("../images/best_bg.png");
+	background-repeat:no-repeat;
+	height:110px;
+}
+#week_worst {
+	border-bottom-width:2px;
+	background-image:url("../images/worst_bg.jpg");
+	background-repeat:no-repeat;
+	height:100%;
+	margin:4px 0 ;
+}
+
+.week_rank .dl_rank dt {
+	float:left;
+	font-size:28px;
+	color:#005015;
+	margin:0 0 0 4px;
+}
+
+#week_best  img {
+	width:125px;
+	height:70px;
+	position:relative;
+	top:20px;
+	left:11px;
+}
+#week_worst  img {
+	width:118px;
+	height:80px;
+	position:relative;
+	top:42px;
+	left:14px;
+}
+.week_rank .dl_rank dd a img {
+	width:50px;
+}

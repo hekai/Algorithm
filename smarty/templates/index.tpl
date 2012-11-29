@@ -5,11 +5,14 @@
 <link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'header.css'}">
 <link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'index.css'}">
 <link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'algo.css'}">
+<link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'content.css'}">
 </head>
 <body>
 
 <div id="header">
-<span class="hello_world">Hello {$name}, Welcome to Algo...(logout)</span>
+<div class="bg_line">
+<span class="hello_world">Hello <a>{$name}</a>, Welcome to Algo...</span><span class="goodbye"><a href="#">logout</a></span>
+</div>
 </div>
 
 
@@ -136,13 +139,6 @@
 				<a style="float:right"><span>AC</span></a>
 			</div>
 			<div class="ac_info">
-				<img src="/Algorithm/upload/1.jpg" title="hacklu" ></img>
-				<img src="/Algorithm/upload/1.jpg" title="jeff" ></img>
-				<img src="/Algorithm/upload/1.jpg" title="cj" ></img>
-				<img src="/Algorithm/upload/1.jpg" title="pangzi" ></img>
-				<img src="/Algorithm/upload/1.jpg" title="ss" ></img>
-				<img src="/Algorithm/upload/1.jpg" title="hk" ></img>
-				<a href="#"><span>AC</span></a>
 			</div>
 			<div class="clearfix">
 				<div class="problem_func">

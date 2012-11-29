@@ -15,17 +15,6 @@ a:hover {
 	text-decoration:underline;
 }
 
-#header {
-	//border:3px solid black;
-	height:40px
-	width:100%;
-	padding: 0 0 5px 0;
-	margin:0 0 15px 0;
-}
-.hello_world {
-	font-size:22px;
-	color:black;
-}
 
 #text {
 //	float:right;
@@ -34,7 +23,7 @@ a:hover {
 //	width:980px;
 	width:870px;
 	height:1024px;
-	margin:0 auto;
+	margin:65px auto;
 	background-image:url("../images/repeat_bg_y.png");
 	background-repeat:repeat-y;
 	padding:0% 0 0 0;
