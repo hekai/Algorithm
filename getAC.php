@@ -2,6 +2,19 @@
 header("content-type:text/html; charset=utf-8");
 require_once ('include/db_operator_class.php');
 
+echo '<h3>get_ScoresByWeek , week = 1</h3>';
+$scoreweek = get_ScoresByWeek(1);
+if($scoreweek!=null){
+	foreach($scoreweek as $key=>$value){
+		foreach($value as $key2=>$value2){
+			printf("%s = %s ,", $key2, $value2);
+		}
+		echo '<br/>';
+	}
+}else{
+	echo 'no result';
+}
+
 echo '<h3>get_ScoresByProb , problem = 1</h3>';
 $scoreprob = get_ScoresByProb(1);
 if($scoreprob!=null){

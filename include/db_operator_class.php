@@ -8,24 +8,25 @@ function get_Users() {
 }
 
 function get_UserById($id) {
-	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team FROM USER AS u WHERE u.stat=0 and u.id = $id LIMIT 1;";
+	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,concat('getPhoto.php?userid=',u.id) FROM USER AS u WHERE u.stat=0 and u.id = $id LIMIT 1;";
 	return mydb_query_return_first_item($query);
 }
 
 function get_UserByEmail($email) {
-	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team FROM USER AS u WHERE u.stat=0 and u.mail = '$email' LIMIT 1";
+	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,concat('getPhoto.php?userid=',u.id) FROM USER AS u WHERE u.stat=0 and u.mail = '$email' LIMIT 1";
 	return mydb_query_return_first_item($query);
 }
+
 //End User Operator
 
 //Problem Operator
 function get_ProblemsOnWeek($week) {
-	$query = "SELECT p.id,p.userID,p.pojProblemID FROM problems AS p where p.stat=0 and p.week=$week;";
+	$query = "SELECT p.id,p.userID,u.name,u.nickname,p.pojProblemID,p.title,p.time,p.source FROM problems AS p,user AS u where p.stat=0 and p.week=$week and p.userID = u.id and u.stat = 0;";
 	return mydb_query_return_double_array($query);
 }
 
 function get_ProblemContentById($id){
-	$query = "SELECT p.id,p.userID,p.pojProblemID,p.Context FROM problems AS p where p.stat=0 and p.id=$id;";
+	$query = "SELECT p.id,p.userID,u.name,u.nickname,p.pojProblemID,p.title,p.Context,p.time,p.source FROM problems AS p,user AS u where p.stat=0 and p.id=$id and u.stat=0 and p.userID=u.id;";
 	return mydb_query_return_first_item($query);
 }
 
@@ -41,13 +42,18 @@ function add_Problem($userId,$pojID,$content,$week){
 //End Problem Operator
 
 //Score Operator
+function get_ScoresByWeek($week){
+	$query = "SELECT s.id,s.userID,u.name,u.nickname,s.AC,s.ACtime,s.lastModify FROM score AS s, user AS u WHERE s.stat=0 AND u.stat = 0 AND s.userID = u.id AND s.probID IN (SELECT id FROM problems AS p WHERE p.stat=0 AND p.week=$week) ORDER BY s.probID;";
+	return mydb_query_return_double_array($query);
+}
+
 function get_ScoresByProb($probId) {
-	$query = "SELECT s.id,s.userID,s.AC FROM score AS s where s.stat=0 and s.probID=$probId order by s.AC DESC,s.ACtime;";
+	$query = "SELECT s.id,s.userID,u.name,u.nickname,s.AC,s.ACtime,s.lastModify FROM score AS s, user AS u where s.stat=0 and s.probID=$probId AND u.stat = 0 AND s.userID = u.id order by s.AC DESC,s.ACtime;";
 	return mydb_query_return_double_array($query);
 }
 
 function get_ScoreContent($id){
-	$query = "SELECT s.id,s.userID,s.AC,s.code,s.language FROM score AS s where s.stat=0 and s.id=$id;";
+	$query = "SELECT s.id,p.title,s.userID,u.name,u.nickname,s.AC,s.code,s.language,s.ACtime,s.lastModify FROM score AS s, user AS u, problems AS p where s.stat=0 and s.id=$id AND u.stat = 0 AND s.userID = u.id AND p.stat=0 AND p.id = s.probID;";
 	return mydb_query_return_first_item($query);
 }
 

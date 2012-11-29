@@ -1,6 +1,7 @@
 <?php
+header("content-type:text/html; charset=utf-8");
 require_once('include/smarty_setup.php');
-
+require_once 'include/db_operator_class.php';
 
 $smarty = new Algo();
 
@@ -37,6 +38,18 @@ $smarty->assign('name','hacklu');
 						   );
 
 $smarty->assign('myAlgos', array($Algo,$Algo1));
+
+$problems = get_ProblemsOnWeek(1);
+
+if($problems!=null){
+	$scores = array();
+	foreach($problems as $parray){
+		$scores[] = get_ScoresByProb($parray['id']);
+	}
+	$smarty->assign('problems',$problems);
+	$smarty->assign('scores',$scores);
+}
+
 $smarty->display('index.tpl');
 
 ?>
