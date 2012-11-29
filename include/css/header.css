@@ -1,0 +1,47 @@
+#f_group {
+        border-width:2px;
+        border-color:gray;
+}
+
+.current {
+	background-color:green;
+	color:white;
+}
+
+.container {
+	margin:0px 0;
+	padding:0px 4px 4px 40%;
+}
+.container p {
+	float:left;
+	display:inline-block;
+	padding:0 8px;
+	margin:0;
+}
+
+#add_algo {
+	float:right;
+	margin:0 3% 0 0;
+	background-color:green;
+	color:white;
+	height:24px;
+	line-height:23px;
+}
+#add_algo a {
+	color:white;
+}
+
+#week_star {
+        border-width:2px;
+        //border-color:gray;
+}
+
+.dl_rank dt {
+	float:left;
+	font-size:28px;
+	color:red;
+}
+
+.dl_rank dt a img {
+	width:140px;
+}

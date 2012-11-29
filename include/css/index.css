@@ -7,10 +7,21 @@ div {
 	margin:0;
 }
 
+a {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+
 #header {
 	border:3px solid black;
-	height:8%;
+	height:5%;
 	width:100%;
+}
+.hello_world {
+	font-size:24px;
+	color:red;
 }
 
 #text {
@@ -21,14 +32,16 @@ div {
 #left_rank {
 	float:left;
 	height:90%;
-	width:18%;
+//	width:18%;
+	padding:1% 0 0 0;
 }
 
 #top {
 	top:0px;
 	float:left;
 	min-height:30%;
-	width:100%;
+	//width:100%;
+	padding:1% 0 0 0;
 }
 
 #bottom_comment {
