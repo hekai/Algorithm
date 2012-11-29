@@ -146,6 +146,10 @@ a:hover {
 	line-height:21px;
 	background-color:#FFA00A;
 }
+.btn_a:hover {
+	background-color:#FFAA23;
+	text-decoration:none;
+}
 
 .dl_comments {
 	padding:18px 0 0;
