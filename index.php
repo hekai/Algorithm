@@ -42,12 +42,13 @@ $smarty->assign('myAlgos', array($Algo,$Algo1));
 $problems = get_ProblemsOnWeek(1);
 
 if($problems!=null){
-	$scores = array();
-	foreach($problems as $parray){
-		$scores[] = get_ScoresByProb($parray['id']);
+	for ($i= 0;$i< count($problems); $i++){
+		$score = get_ScoresByProb($problems[$i]['id']);
+		$commentCount = get_CommentsCountByProb($problems[$i]['id']);
+		$problems[$i]['score'] = $score;
+		$problems[$i]['commentCount'] = $commentCount['count(*)'];
 	}
 	$smarty->assign('problems',$problems);
-	$smarty->assign('scores',$scores);
 }
 
 $smarty->display('index.tpl');
