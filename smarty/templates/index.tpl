@@ -56,7 +56,7 @@
 	<p><a href="#" class="s_txt0"><span>&lt;Pre</span></a></p>
 	<p><a href="#" class="s_txt0"><span>Next&gt;</span></a></p>
 	<p><a href="#" class="s_txt0"><span>Last&gt;&gt;</span></a></p>
-	<a id="add_algo" class="btn-p"></a>
+	<a id="add_algo" class="btn-p"><span class="publish">publish!</span></a>
 </div>
 
 <div class="algo">

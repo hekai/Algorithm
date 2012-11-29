@@ -32,19 +32,32 @@ fieldset {
 	margin:0 3% 0 0;
 	background-color:green;
 	color:white;
+	text-align:center;
+	text-decoration:none;
+	
 	//height:24px;
 	//line-height:23px;
 	text-align:center;
 	font:normal;
 	background:url("../images/btn_p.png") no-repeat;
-	background-position:-133px -50px;
+	background-position:-133px -205px;
+	//background-position:-133px -50px;
 	width:82;
 	height:30px;
 	display:inline-block;
 	outline-style:none;
 }
+.publish {
+	position:relative;
+	top:4px;
+	left:1px;
+	font-size:18px;
+	font-weight:bold;
+	line-height:20px;
+}
 #add_algo:hover  {
-	background-position:-217px -50px;
+	background-position:-217px -205px;
+	//background-position:-217px -50px;
 }
 
 .week_rank {
