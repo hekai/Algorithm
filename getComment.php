@@ -2,29 +2,23 @@
 header("content-type:text/html; charset=utf-8");
 require_once ('include/db_operator_class.php');
 
-echo '<h3>get_CommentsByProb , problem = 1</h3>';
-$commentsprob = get_CommentsByProb(1);
-if($commentsprob!=null){
-	foreach($commentsprob as $key=>$value){
-		foreach($value as $key2=>$value2){
-			printf("%s = %s ,", $key2, $value2);
-		}
-		echo '<br/>';
+$type = $_GET['type'];
+if($type!=null && $type==1){
+	$probId = $_GET['probID'];
+	$commentsprob = get_CommentsByProb($probId);
+	if($commentsprob!=null){
+		$commentsprob = my_urlencode_double($commentsprob);
+		$json = urldecode(json_encode($commentsprob));
+		echo $json;
 	}
-}else{
-	echo 'no result';
-}
-
-echo '<h3>get_CommentsByProb , week = 1,group = 1</h3>';
-$commentsspring = get_CommentsByWeek(1, 1);
-if($commentsspring!=null){
-	foreach($commentsspring as $key=>$value){
-		foreach($value as $key2=>$value2){
-			printf("%s = %s ,", $key2, $value2);
-		}
-		echo '<br/>';
+}else if($type!=null && $type==2){
+	$week = $_GET['week'];
+	$team = $_GET['team'];
+	$commentspring = get_CommentsByWeek($week, $team);
+	if($commentspring!=null){
+		$commentspring = my_urlencode_double($commentspring);
+		$json = urldecode(json_encode($commentspring));
+		echo $json;
 	}
-}else{
-	echo 'no result';
 }
 ?>

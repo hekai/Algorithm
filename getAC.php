@@ -2,40 +2,12 @@
 header("content-type:text/html; charset=utf-8");
 require_once ('include/db_operator_class.php');
 
-echo '<h3>get_ScoresByWeek , week = 1</h3>';
-$scoreweek = get_ScoresByWeek(1);
-if($scoreweek!=null){
-	foreach($scoreweek as $key=>$value){
-		foreach($value as $key2=>$value2){
-			printf("%s = %s ,", $key2, $value2);
-		}
-		echo '<br/>';
-	}
-}else{
-	echo 'no result';
-}
+$scoreId = $_GET['scoreID'];
 
-echo '<h3>get_ScoresByProb , problem = 1</h3>';
-$scoreprob = get_ScoresByProb(1);
-if($scoreprob!=null){
-	foreach($scoreprob as $key=>$value){
-		foreach($value as $key2=>$value2){
-			printf("%s = %s ,", $key2, $value2);
-		}
-		echo '<br/>';
-	}
-}else{
-	echo 'no result';
-}
+$scores = get_ScoreContent($scoreId);
 
-echo '<h3>get_ScoreContent , id = 1</h3>';
-$score1 = get_ScoreContent(1);
-if($score1!=null){
-	foreach($score1 as $keyu1=>$valueu1){
-		printf("%s = %s ,", $keyu1, $valueu1);
-	}
-	echo '<br/>';
-}else{
-	echo 'no result';
+if($scores!=null){
+	$scores = my_urlencode_single($scores);
+	echo urldecode(json_encode($scores));
 }
 ?>
