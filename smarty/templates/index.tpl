@@ -6,9 +6,78 @@
 <link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'index.css'}">
 <link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'algo.css'}">
 <link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'content.css'}">
-</head>
-<body>
+<link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'jquery-ui.css'}">
 
+
+<script type="text/javascript" src="{$CSS_DIR|cat:'../js/jquery.js'}"></script>
+<script type="text/javascript" src="{$CSS_DIR|cat:'../js/jquery-ui.js'}"></script>
+
+{*dialog inline css*}
+<style>
+	 .diag_label {
+		 display:block;
+		 }
+	 .diag_input { display:block;
+}
+	 .diag_input { margin-bottom:12px; width:95%; padding: .4em;
+}
+	 .diag_fieldset { padding:0; border:0;
+		}
+	 .diag_textarea { width:95%; height:238px; padding:.4em;
+			}
+	 .diag_validateTips { border: 1px solid transparent; padding: 3px;margin:5px 0;
+		}
+</style>
+
+<script type="text/javascript">
+	$(function(){
+			$(".click_comments").click(function(){
+				$(this).parent().parent().next().toggle();
+			});
+
+			$( "#dialog-form" ).dialog({
+			    autoOpen: false,
+			    height: 700,
+			    width: 600,
+			    modal: true,
+			    buttons: {
+				"Publish": function() {
+				},
+				Cancel: function() {
+				    $( this ).dialog( "close" );
+				}
+			    },
+			    close: function() {
+			    }
+			});
+			$( "#dialog-ac" ).dialog({
+			    autoOpen: false,
+			    height: 700,
+			    width: 600,
+			    modal: true,
+			    buttons: {
+				"Submit": function() {
+				},
+				Cancel: function() {
+				    $( this ).dialog( "close" );
+				}
+			    },
+			    close: function() {
+			    }
+			});
+ 
+			$(".publish").click(function() {
+					$( "#dialog-form" ).dialog( "open" );
+				});
+			$(".ac_button").click(function() {
+					$("#dialog-ac").dialog("open");
+				});
+		});
+</script>
+
+</head>
+
+<body>
 <div id="header">
 <div class="bg_line">
 <span class="hello_world">Hello <a>{$name}</a>, Welcome to Algo...</span><span class="goodbye"><a href="#">logout</a></span>
@@ -59,54 +128,47 @@
 	<p><a href="#" class="s_txt0"><span>Last&gt;&gt;</span></a></p>
 	<a id="add_algo" class="btn-p"><span class="publish">publish!</span></a>
 </div>
-{foreach $myAlgos as $Algo}
+{foreach $problems as $problem}
+{*{assign var="i" value="$Algo@index"}*}
+{*<h1>{$test[$problem@index].a}</h1>*}
 <div class="algo">
 	<div class="algo_detail s_line2">
 		{*<div class="algo_face"><img src="/Algorithm/upload/small.png" title="hacklu"></img></div>*}
-		<div class="algo_face"><img src="{$Algo.user_photo}" title="{$Algo.user_name}"></img></div>
+		<div class="algo_face"><img src="{'getPhoto.php?userid='|cat:$problem.userID}" title="{$problem.nickname}"></img></div>
 		<div class="problem_detail">
 			<div class="author_info">
 				{*<a class="author_name" href="#">hacklu</a>	*}
-				<a class="author_name" href="#">{$Algo.user_name}</a>	
+				<a class="author_name" href="#">{$problem.name}</a>	
 				{*<span class="author_nickname" >(hacklu)</sapn>*}
-				<span class="author_nickname" >({$Algo.user_nickname})</sapn>
+				<span class="author_nickname" >({$problem.nickname})</sapn>
 			</div>
 			<div class="problem_text">
 				{*<a class="problem_link" href="#">poj1000</a>*}
-				<a class="problem_link" href="#">poj{$Algo.problem.no}</a>
+				<a class="problem_link" href="#">poj{$problem.pojProblemID}</a>
 				{*<span>this is a beginner's problem. Be happy with it</span>*}
-				<span>{$Algo.problem.title}</span>
+				<span>&nbsp;&nbsp; {$problem.title}</span>
 			</div>
 			<div class="ac_info">
 				{*<img src="/Algorithm/upload/1.jpg" title="hacklu" ></img>*}
-				{*<img src="/Algorithm/upload/1.jpg" title="jeff" ></img>*}
-				{*<img src="/Algorithm/upload/1.jpg" title="cj" ></img>*}
-				{*<img src="/Algorithm/upload/1.jpg" title="pangzi" ></img>*}
-				{*<img src="/Algorithm/upload/1.jpg" title="ss" ></img>*}
-				{*<img src="/Algorithm/upload/1.jpg" title="hk" ></img>*}
-					{foreach $Algo.ac_info as $ac}
-						{*{assign var="name" value=$ac.name}*}
-						{*{assign var="time" value=$ac.time}*}
-						{*{assign var="t" value="$name$time"}*}
-						{*<img src={$ac.img} title="{$ac.fix_bug}"></img>*}
-						<img src={$ac.img} title="{$ac.name|cat:' '|cat:$ac.time}"></img>
-						{*{$title=$ac.name + ' at '}*}
-						{*<img src={$ac.img} title={$ac.name+$ac.time}></img>*}
+					{foreach $problem.score as $ac}
+						{if $ac.AC eq '1'}
+							<img src="{'getPhoto.php?userid='|cat:$ac.userID}" title="{$ac.nickname|cat:' '|cat:$ac.ACtime}"></img>
+						{/if}
 					{/foreach}
 			</div>
 			<div class="clearfix">
 				<div class="problem_func">
-					<a class="btn_a" href="#">AC</a>
+					<a class="btn_a ac_button" href="#">AC</a>
 					<i class="s_txt3">|</i>
 					{*<a href="#">Comments(0)</a>*}
-					<a href="#">Comments({$Algo.comment_num})</a>
+					<a href="#" class="click_comments">Comments({$problem.commentCount})</a>
 				</div>
 				<div class="problem_from">
 					{*<a class="problem_time s_txt0">2012/11/28 10:40:00</a>*}
-					<a class="problem_time s_txt0">{$Algo.problem.submit_time}</a>
+					<a class="problem_time s_txt0">{$problem.time}</a>
 					<em class="s_txt2">from</em>
 					{*<a class="s_link2 s_txt0" href="#">ACM2006</a>*}
-					<a class="s_link2 s_txt0" href="#">{$Algo.problem.source}</a>
+					<a class="s_link2 s_txt0" href="#">{$problem.source}</a>
 				</div>
 			</div>
 			<div class="problem_comments s_line1">
@@ -145,7 +207,41 @@
 	<textarea rows="10" cols="30"> add comments here...  </textarea>
 </div>
 -->
+<div class="fixbug"></div> {* this is so important!. fix the div height auto *}
 </div>
 
+{*dialog is here~*}
+<div id="dialog-form" title="Publish New Problem">
+    <p class="diag_validateTips">All form fields are required.</p>
+    <form>
+    <fieldset>
+        <label class="diag_label" for="">Poj No</label>
+        <input class="diag_input" type="text" name="no" id="diag_no" class="text ui-widget-content ui-corner-all" />
+        <label class="diag_label" for="">Problem Title</label>
+        <input class="diag_input" type="text" name="title" id="diag_title" value="" class="text ui-widget-content ui-corner-all" />
+        <label class="diag_label" for="">Problem Source</label>
+        <input class="diag_input" type="text" name="source" id="diag_source" value="" class="text ui-widget-content ui-corner-all" />
+        <label class="diag_label" for="">Problem Description</label>
+	<textarea class="diag_textarea ui-corner-all ui-widget-content" id="diag_description"></textarea>
+        <!--<input type="textarea" name="description" id="diag_description" value="" class="text ui-widget-content ui-corner-all" />-->
+    </fieldset>
+    </form>
+</div>
+<div id="dialog-ac" title="AC it!">
+    <form>
+    <fieldset>
+        <label class="diag_label" for="">Language</label>
+        <select class="diag_input" type="select" name="language" id="diag_language" value="" class="select ui-widget-content ui-corner-all" />
+	<option value="c">C</option>
+	<option value="c++">C++</option>
+	<option value="java">Java</option>
+</select>
+        <label class="diag_label" style="display:inline-block; margin:0 0 3px 0;" for="">AC?</label>
+        <input class="" type="checkbox" name="" id="diag_ac" check="checked" class="checkbox ui-widget-content ui-corner-all" />
+        <label class="diag_label" for="">Code here</label>
+	<textarea class="diag_textarea ui-corner-all ui-widget-content" id="diag_ac_code" style="height:390px;"></textarea>
+    </fieldset>
+    </form>
+</div>
 </body>
 </html>

@@ -1,10 +1,16 @@
 body {
 	background-image:url("../images/body_bg.jpg");
+	background-repeat:no-repeat;
+	background-position:center 0;
+	padding-top:30px;
+	background-color:#b0e0fa;
+	display:block;
 }
 div {
 //	border:1px solid red;
 	padding:0;
 	margin:0;
+	/*display:block;*/
 }
 
 a {
@@ -22,7 +28,7 @@ a:hover {
 //	height:90%;
 //	width:980px;
 	width:870px;
-	height:1024px;
+	/*height:1024px;*/
 	margin:65px auto;
 	background-image:url("../images/repeat_bg_y.png");
 	background-repeat:repeat-y;
@@ -34,7 +40,7 @@ a:hover {
 	height:100%;
 	width:150px;
 	padding:1% 0 0 0;
-//	background-color:#F2F2F2;
+	background-color:#F2F2F2;
 	overflow:hidden;
 }
 
@@ -44,7 +50,7 @@ a:hover {
 	min-height:30%;
 	//width:100%;
 	padding:1% 0 0 0;
-	height:100%;
+	/*height:100%;*/
 	background-color:#FAFAFA;
 }
 
@@ -54,3 +60,6 @@ a:hover {
 	width:100%;
 	}
 
+.fixbug {
+	clear:both;
+}
