@@ -185,3 +185,6 @@ a:hover {
 	text-align:right;
 	margin:4px 0;
 }
+.hide_data {
+	display:none;
+}
