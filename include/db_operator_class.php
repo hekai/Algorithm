@@ -17,6 +17,11 @@ function get_UserByEmail($email) {
 	return mydb_query_return_first_item($query);
 }
 
+function get_UserByUid($uid) {
+	$query = "SELECT u.id,u.uid,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM USER AS u WHERE u.stat=0 and u.uid = $uid LIMIT 1";
+	return mydb_query_return_first_item($query);
+}
+
 //End User Operator
 
 //Problem Operator
@@ -135,5 +140,9 @@ function my_urlencode_single($array){
 	return $array;
 }
 //End urlencode 
+
+//login
+
+//End login
 
 ?>
