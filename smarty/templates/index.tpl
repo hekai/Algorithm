@@ -57,9 +57,9 @@
 
 						$.each(data,function(i,d){
 							var insert='<dl class="dl_comments s_line1 no_border_line">';
-							insert+='<dt><a href="#"><img alt="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';
-							insert+='<dd><a href="#">'+ d['nickname'] + ':</a>' + d['content'] + ' (' + d['time'] + ')';
-							insert+='<div class="dl_comment_action"><p><a href="#">Delete</a></p></div></dl>';
+							insert+='<dt><a href="##"><img alt="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';
+							insert+='<dd><a href="##">'+ d['nickname'] + ':</a>' + d['content'] + ' (' + d['time'] + ')';
+							insert+='<div class="dl_comment_action"><p><a href="##">Delete</a></p></div></dl>';
 
 							$(insert).appendTo(comments_lists.children('dl:last'));
 							});
@@ -200,6 +200,25 @@
 			else
 				$("#group2").addClass("current_group");
 
+			$(".problem_link").click(function(){
+					 var problem_detail = $(this).parent().parent();
+					 currentProblemID = problem_detail.children('span:first').html();
+					 var $link = 'getContent.php?probID=' + currentProblemID;
+
+					 $.getJSON($link,function(data){
+						 var $dialog = $('<div><span>'+ data['Context']+'</span></div>').dialog({
+						 autoOpen:true,
+						 model:false,
+						 position:{ my:"center",at:"top"},
+						 title: 'POJ ' + data['pojProblemID'] +'  '+ data['title'],
+						 width:500,
+						 height:500});
+
+					 });
+
+
+				});
+
 		});
 </script>
 
@@ -247,57 +266,55 @@
 <div id="top">
 <fieldset id="f_group">
 {*use js set current *}
-<legend><a href="#" class="" id="group1">Group1</a>/<a href="#" id="group2">Group2</a></legend>
+<legend><a href="##" class="" id="group1">Group1</a>/<a href="##" id="group2">Group2</a></legend>
 
 <div class="container">
-	<p><a href="#" class="s_txt0"><span>&lt;&lt;First</span></a></p>
-	<p><a href="#" class="s_txt0"><span>&lt;Pre</span></a></p>
-	<p><a href="#" class="s_txt0"><span>Next&gt;</span></a></p>
-	<p><a href="#" class="s_txt0"><span>Last&gt;&gt;</span></a></p>
+	<p><a href="##" class="s_txt0"><span>&lt;&lt;First</span></a></p>
+	<p><a href="##" class="s_txt0"><span>&lt;Pre</span></a></p>
+	<p><a href="##" class="s_txt0"><span>Next&gt;</span></a></p>
+	<p><a href="##" class="s_txt0"><span>Last&gt;&gt;</span></a></p>
 	<a id="add_algo" class="btn-p"><span class="publish">publish!</span></a>
 </div>
 {foreach $problems as $problem}
-{*{assign var="i" value="$Algo@index"}*}
 {*<h1>{$test[$problem@index].a}</h1>*}
 <div class="algo">
 	<div class="algo_detail s_line2">
-		{*<div class="algo_face"><img src="/Algorithm/upload/small.png" title="hacklu"></img></div>*}
 		{*<div class="algo_face"><img src="{'getPhoto.php?userid='|cat:$problem.userID}" title="{$problem.nickname}"></img></div>*}
 		<div class="algo_face"><img src="{$problem.photoPath}" title="{$problem.nickname}"></img></div>
 		<div class="problem_detail">
 			<span class="hide_data problemID">{$problem.id}</span>
 			<div class="author_info">
 				{*<a class="author_name" href="#">hacklu</a>	*}
-				<a class="author_name" href="#">{$problem.name}</a>	
+				<a class="author_name" href="##">{$problem.name}</a>	
 				{*<span class="author_nickname" >(hacklu)</sapn>*}
 				<span class="author_nickname" >({$problem.nickname})</sapn>
 			</div>
 			<div class="problem_text">
-				{*<a class="problem_link" href="#">poj1000</a>*}
-				<a class="problem_link" href="#">poj{$problem.pojProblemID}</a>
+				{*<a class="problem_link" href="##">poj1000</a>*}
+				<a class="problem_link" href="##">poj{$problem.pojProblemID}</a>
 				{*<span>this is a beginner's problem. Be happy with it</span>*}
 				<span>&nbsp;&nbsp; {$problem.title}</span>
 			</div>
 			<div class="ac_info">
 					{foreach $problem.score as $ac}
 						{if $ac.AC eq '1'}
-							<img src="{$ac.photoPath}" title="{$ac.nickname|cat:' '|cat:$ac.ACtime}"></img>
+							<img src="{$ac.photoPath}" title="{$ac.nickname|cat:' '|cat:$ac.ACtime}"><div class="hide_data scoreID"></div></img>
 						{/if}
 					{/foreach}
 			</div>
 			<div class="clearfix">
 				<div class="problem_func">
-					<a class="btn_a ac_button" href="#">AC</a>
+					<a class="btn_a ac_button" href="##">AC</a>
 					<i class="s_txt3">|</i>
 					{*<a href="#">Comments(0)</a>*}
-					<a href="#" class="click_comments">Comments({$problem.commentCount})</a>
+					<a href="##" class="click_comments">Comments({$problem.commentCount})</a>
 				</div>
 				<div class="problem_from">
 					{*<a class="problem_time s_txt0">2012/11/28 10:40:00</a>*}
 					<a class="problem_time s_txt0">{$problem.time}</a>
 					<em class="s_txt2">from</em>
 					{*<a class="s_link2 s_txt0" href="#">ACM2006</a>*}
-					<a class="s_link2 s_txt0" href="#">{$problem.source}</a>
+					<a class="s_link2 s_txt0" href="##">{$problem.source}</a>
 				</div>
 			</div>
 			<div class="problem_comments s_line1">

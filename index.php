@@ -1,9 +1,9 @@
 <?php
-session_start();
-if(!isset($_SESSION['login'])){
-	header("Location: login.php");
-	exit;
-}
+//session_start();
+//if(!isset($_SESSION['login'])){
+	//header("Location: login.php");
+	//exit;
+//}
 header("content-type:text/html; charset=utf-8");
 require_once('include/smarty_setup.php');
 require_once 'include/db_operator_class.php';
