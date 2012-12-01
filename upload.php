@@ -49,7 +49,7 @@ require_once 'include/db_operator_class.php';
 	
 		exit;
 	}
-	if($form_data_size > 5000000){
+	if($form_data_size > 1000000){
 		echo '文件过大！';
 		exit;
 	}
