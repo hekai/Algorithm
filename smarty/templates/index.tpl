@@ -116,11 +116,10 @@
 
 				var week= getWeek();
 				var userid= getUserID();
-				var level = getGroup();
 				if(pojNO.length==0 || pojTitle.length==0)
 					return false;
 
-				var sendData={ userID:userid,week:week,title:pojTitle,pojID:pojNO,content:pojDesription,source:pojSource,level:level,insert:"- -!" };
+				var sendData={ userID:userid,week:week,title:pojTitle,pojID:pojNO,content:pojDesription,source:pojSource,insert:"- -!" };
 				$.post('ProblemOperator.php',sendData,function(data){
 						console.log("publish problem success");
 						$("#diag_no").val("");
@@ -236,6 +235,21 @@
 
 			});
 
+			function getRank(){
+					var week = getWeek();
+					var team = getGroup();
+			
+					var $link = 'getRank.php?week=' + week + '&&team=' + team;
+
+					 $.getJSON($link,function(data){
+					 console.log(data);
+
+
+					 });
+
+
+			};
+
 		});
 </script>
 
@@ -277,20 +291,18 @@
 		</dl>
 
 		</fieldset>
-		{*
 		<div class="week_best_div">
 			<span id="week_worst_span">The Worst:</span>
 			<fieldset id="week_worst" class="week_rank">
 				<img alt="hacklu" src="photo.png"></img>
 			</fieldset>
 		</div>
-		*}
 	</div>
 
 <div id="top">
 <fieldset id="f_group">
 {*use js set current *}
-<legend><a href="index.php?level=1" class="" id="group1">Group1</a>/<a href="index.php?level=2" id="group2">Group2</a></legend>
+<legend><a href="##" class="" id="group1">Group1</a>/<a href="##" id="group2">Group2</a></legend>
 
 <div class="container">
 	<p><a href="##" class="s_txt0"><span>&lt;&lt;First</span></a></p>
