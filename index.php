@@ -49,6 +49,9 @@ if($problems!=null){
 	}
 	$smarty->assign('problems',$problems);
 }
+$smarty->assign('week',"1");
+$smarty->assign('group',"1");
+$smarty->assign('userid',"1");
 
 $smarty->display('index.tpl');
 

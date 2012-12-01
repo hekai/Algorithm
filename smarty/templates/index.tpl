@@ -31,7 +31,16 @@
 
 <script type="text/javascript">
 	$(function(){
-
+			var currentProblemID;
+			function getWeek(){
+			return $("#secret_week").html();
+			}
+			function getGroup(){
+			return $("#secret_group").html();
+			}
+			function getUserID(){
+			return $("#secret_userid").html();
+			}
 			function freshCommet(problem_detail){
 
 						var problemID=parseInt(problem_detail.children('span:first').html());
@@ -62,33 +71,10 @@
 			$(".click_comments").click(function(){
 				
 				var t =	$(this).parent().parent().next().css("display")
+				var problem_detail = $(this).parent().parent().parent();
 				if(t=="none")
 					{
-						var problem_detail = $(this).parent().parent().parent();
-						var problemID=parseInt(problem_detail.children('span:first').html());
-						var sendData="type=1&&probID="+problemID;
-
-						$.getJSON('getComment.php',sendData,function(data){
-
-						var comments_lists= problem_detail.children('div:last').children().children().children('div:last');
-						comments_lists.children().remove();
-						comments_lists.append('<dl class="dl_comments s_line1 no_border_line"></dl>');
-
-						{*update comments number*}
-						var mm = comments_lists.parent().parent().parent().prev().children('div:first').children('a:last');
-						mm.html('Comments('+data.length+')');
-
-						$.each(data,function(i,d){
-							var insert='<dl class="dl_comments s_line1 no_border_line">';
-							insert+='<dt><a href="#"><img alt="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';
-							insert+='<dd><a href="#">'+ d['nickname'] + ':</a>' + d['content'] + ' (' + d['time'] + ')';
-							insert+='<div class="dl_comment_action"><p><a href="#">Delete</a></p></div></dl>';
-
-							$(insert).appendTo(comments_lists.children('dl:last'));
-							});
-
-						});
-							
+					freshCommet(problem_detail);
 					}
 				$(this).parent().parent().next().toggle();
 			});
@@ -101,14 +87,14 @@
 				var problem_detail = $(this).parents('.problem_detail');
 				var problemID=problem_detail.children('span:first').html();
 
-				var userid = "1";
+				var userid = getUserID();
 				
 				var sendData={ userID:userid,probID:problemID,content:text.val(),insert:"- -!" };
-				{*var sendData={ userID:userid };*}
 				$.post('CommentProbOperator.php',sendData,function(data){
 						console.log("add comment for problem success");
 						console.log(data);
 						freshCommet(problem_detail);
+						text.val("");
 
 				});
 
@@ -119,8 +105,30 @@
 			    height: 700,
 			    width: 600,
 			    modal: true,
+			    position:{ my:"center",at:"top"},
 			    buttons: {
 				"Publish": function() {
+				
+				var pojNO=$("#diag_no").val();
+				var pojTitle=$("#diag_title").val();
+				var pojSource=$("#diag_source").val();
+				var pojDesription=$("#diag_description").val();
+
+				var week= getWeek();
+				var userid= getUserID();
+				if(pojNO.length==0 || pojTitle.length==0)
+					return false;
+
+				var sendData={ userID:userid,week:week,title:pojTitle,pojID:pojNO,content:pojDesription,source:pojSource,insert:"- -!" };
+				$.post('ProblemOperator.php',sendData,function(data){
+						console.log("publish problem success");
+						$("#diag_no").val("");
+						$("#diag_title").val("");
+						$("#diag_source").val("");
+						$("#diag_description").val("");
+
+				});
+
 				},
 				Cancel: function() {
 				    $( this ).dialog( "close" );
@@ -134,13 +142,43 @@
 			    height: 700,
 			    width: 600,
 			    modal: true,
+			    position:{ my:"center",at:"top"},
 			    buttons: {
 				"Submit": function() {
+
+				var probID = currentProblemID;
+				var code = $("#diag_ac_code").val();
+				if(code.length==0)
+					return false;
+				var ac;
+				if($("#diag_ac").is(':checked'))
+					ac = "1";
+				else
+					ac = "0";
+				var language=$("#diag_language").val();
+
+				var userid= getUserID();
+
+				var type="insert ni mei";
+
+				var sendData={ code:code,ac:ac,language:language,userID:userid,probID:probID,insert:type };
+				$.post('ScoreOperator.php',sendData,function(data){
+						console.log("ac "+ probID+" success");
+					//	$(this).dialog( "close" );
+						$("#diag_ac_code").val("");
+						
+				});
+				
 				},
 				Cancel: function() {
 				    $( this ).dialog( "close" );
 				}
 			    },
+			    {*open:function() {*}
+					      {*$('.ui-widget-overlay').bind('click', function() {*}
+					      {*$(this).dialog('close');*}
+						  {*});*}
+					  {*},*}
 			    close: function() {
 			    }
 			});
@@ -149,8 +187,19 @@
 					$( "#dialog-form" ).dialog( "open" );
 				});
 			$(".ac_button").click(function() {
+					 var problem_detail = $(this).parent().parent().parent();
+					 currentProblemID = parseInt(problem_detail.children('span:first').html());
+					 var problemPojId = problem_detail.children('div:first').next().children().html();
+					$("#dialog-ac").dialog({ title:'AC '+ problemPojId +' ?'});
 					$("#dialog-ac").dialog("open");
 				});
+
+				{*set current group*}
+			if(getGroup()=="1")
+				$("#group1").addClass("current_group");
+			else
+				$("#group2").addClass("current_group");
+
 		});
 </script>
 
@@ -198,7 +247,7 @@
 <div id="top">
 <fieldset id="f_group">
 {*use js set current *}
-<legend><a href="#" class="current">Group1</a>/<a href="#">Group2</a></legend>
+<legend><a href="#" class="" id="group1">Group1</a>/<a href="#" id="group2">Group2</a></legend>
 
 <div class="container">
 	<p><a href="#" class="s_txt0"><span>&lt;&lt;First</span></a></p>
@@ -315,6 +364,8 @@
         <select class="diag_input" type="select" name="language" id="diag_language" value="" class="select ui-widget-content ui-corner-all" />
 	<option value="c">C</option>
 	<option value="c++">C++</option>
+	<option value="gcc">GCC</option>
+	<option value="g++">G++</option>
 	<option value="java">Java</option>
 </select>
         <label class="diag_label" style="display:inline-block; margin:0 0 3px 0;" for="">AC?</label>
@@ -323,6 +374,12 @@
 	<textarea class="diag_textarea ui-corner-all ui-widget-content" id="diag_ac_code" style="height:390px;"></textarea>
     </fieldset>
     </form>
+</div>
+{*hide data here*}
+<div id="secret_data" class="hide_data">
+<div id="secret_week">{$week}</div>
+<div id="secret_group">{$group}</div>
+<div id="secret_userid">{$userid}</div>
 </div>
 </body>
 </html>
