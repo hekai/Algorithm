@@ -1,5 +1,5 @@
 <?php
-include 'permission.php';
+// include 'permission.php';
 require_once 'include/db_operator_class.php';
 
 	$form_data_name = $_FILES['form_data']['name'];
@@ -8,8 +8,30 @@ require_once 'include/db_operator_class.php';
 	$form_data = $_FILES['form_data']['tmp_name'];
 	$form_error = $_FILES['form_data']['error'];
 	
-	$userID = $_POST['userid'];
-	echo $form_data_name . ' - ' . $form_data_size . ' - ' . $form_data_type . ' - ' . $form_data;
+	$uid=$_POST['uid'];
+	$name=$_POST['name'];
+	$sex=$_POST['sex'];
+	$nickname=$_POST['nickname'];
+	$email=$_POST['email'];
+	$pojusername=$_POST['poj_username'];
+	$group=$_POST['group'];
+	
+	if($uid==null || $name==null|| $nickname==null|| $email==null|| $pojusername==null ||$form_data==null){
+		echo 'something is null!!! check again!!!';
+		exit;
+	}
+	
+	add_User($uid, $name, $sex, $nickname, $pojusername, $email, $group);
+	
+	$user_result = get_UserByUid($uid);
+	if($user_result!=null){
+		$userID = $user_result['id'];
+	}else{
+		echo 'insert error.';
+		exit;
+	}
+	
+// 	echo $form_data_name . ' - ' . $form_data_size . ' - ' . $form_data_type . ' - ' . $form_data;
 	
 	if($form_error > 0){
 		echo '!problem:';
@@ -69,6 +91,7 @@ require_once 'include/db_operator_class.php';
 // 	$query="UPDATE user SET photo = '$content' , photoType = '$form_data_type' WHERE id = 1 ;";
 	$query="UPDATE user SET photoPath = '$upfile' , photoType = '$form_data_type' WHERE id = $userID;";
 	mydb_query_without_return($query);
-
+	
+	header("Location: sinaredirect.php?uid=".$uid);
 
 ?>
