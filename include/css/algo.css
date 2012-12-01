@@ -92,7 +92,7 @@ a:hover {
 	border-radius:9px;
 	line-height:20px;
 	margin:10px 0 0;
-//	display:none;
+	display:none;
 }
 .s_line1 {
 	border-color:#d9d9d9;
@@ -184,4 +184,7 @@ a:hover {
 .dl_comment_action p {
 	text-align:right;
 	margin:4px 0;
+}
+.hide_data {
+	display:none;
 }
