@@ -7,7 +7,7 @@ fieldset {
 //	background-color:#FAFAFA;
 	margin:0;
 	border-style:none;
-	border-bottom-style:solid;
+	/*border-bottom-style:solid;*/
 }
 
 .current_group {

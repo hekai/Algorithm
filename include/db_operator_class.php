@@ -3,22 +3,22 @@ require_once ('config.php');
 
 //User Operator
 function get_Users() {
-	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM USER AS u WHERE u.stat=0;";
+	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM user AS u WHERE u.stat=0;";
 	return mydb_query_return_double_array($query);
 }
 
 function get_UserById($id) {
-	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM USER AS u WHERE u.stat=0 and u.id = $id LIMIT 1;";
+	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM user AS u WHERE u.stat=0 and u.id = $id LIMIT 1;";
 	return mydb_query_return_first_item($query);
 }
 
 function get_UserByEmail($email) {
-	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM USER AS u WHERE u.stat=0 and u.mail = '$email' LIMIT 1";
+	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM user AS u WHERE u.stat=0 and u.mail = '$email' LIMIT 1";
 	return mydb_query_return_first_item($query);
 }
 
 function get_UserByUid($uid) {
-	$query = "SELECT u.id,u.uid,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM USER AS u WHERE u.stat=0 and u.uid = $uid LIMIT 1";
+	$query = "SELECT u.id,u.uid,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM user AS u WHERE u.stat=0 and u.uid = $uid LIMIT 1";
 	return mydb_query_return_first_item($query);
 }
 

@@ -67,6 +67,41 @@
 						});
 
 			};
+			function getRank(){
+					var week = getWeek();
+					var team = getGroup();
+			
+					var $link = 'getRank.php?week=' + week + '&&team=' + team;
+
+					 $.getJSON($link,function(data){
+
+						$('#left_rank').children().remove();
+					 
+						$.each(data,function(i,d){
+							{*var insert='<dl class="dl_comments s_line1 no_border_line">';*}
+							{*insert+='<dt><a href="##"><img alt="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';*}
+							{*insert+='<dd><a href="##">'+ d['nickname'] + ':</a>' + d['content'] + ' (' + d['time'] + ')';*}
+							{*insert+='<div class="dl_comment_action"><p><a href="##">Delete</a></p></div></dl>';*}
+
+							{*$(insert).appendTo(comments_lists.children('dl:last'));*}
+
+							var m=i+1;
+							if(i==0){
+
+								var insert='<span class="week_rank_title">Week Rank:</span><div class="week_best_div"><span id="week_best_span">The Best:</span><fieldset id="week_best"><img alt="' + d['nickname'] + '" src="'+d['photoPath'] + '"></img></fieldset></div><fieldset  class="week_rank"></fieldset>';
+								$('#left_rank').append(insert);
+							}
+							else{
+
+								var insert='<dl class="dl_rank"><dt><span class="week_rank_span">NO.'+ m+':</span>&nbsp;</dt><dd><a href="##"><img alt="'+d['nickname'] +'" src="' + d['photoPath']+'"></img></a></dd></dl>';
+								{*$(insert).append($('.week_rank').children('dl:last'));*}
+								$('.week_rank').append(insert);
+							}
+
+					 });
+
+				});
+			}
 
 			$(".click_comments").click(function(){
 				
@@ -166,6 +201,7 @@
 						console.log("ac "+ probID+" success");
 					//	$(this).dialog( "close" );
 						$("#diag_ac_code").val("");
+						getRank();
 						
 				});
 				
@@ -235,20 +271,7 @@
 
 			});
 
-			function getRank(){
-					var week = getWeek();
-					var team = getGroup();
-			
-					var $link = 'getRank.php?week=' + week + '&&team=' + team;
-
-					 $.getJSON($link,function(data){
-					 console.log(data);
-
-
-					 });
-
-
-			};
+			getRank();
 
 		});
 </script>
@@ -265,44 +288,44 @@
 
 <div id="text">
 	<div id="left_rank" class="left_tab">
-		<span class="week_rank_title">Week Rank:</span>
-		<div class="week_best_div">
-		<span id="week_best_span">The Best:</span>
-		<fieldset id="week_best">
-			<img alt="hacklu" src="photo.png"></img>
-		</fieldset>
-		</div>
-		<fieldset class="week_rank">
-		<dl class="dl_rank">
-			<dt><span class="week_rank_span">NO.2:</span>&nbsp;</dt>
-			<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>
-		</dl>
-		<dl class="dl_rank">
-			<dt><span class="week_rank_span">NO.3:</span>&nbsp;</dt>
-			<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>
-		</dl>
-		<dl class="dl_rank">
-			<dt><span class="week_rank_span">NO.4:</span>&nbsp;</dt>
-			<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>
-		</dl>
-		<dl class="dl_rank">
-			<dt><span class="week_rank_span">NO.5:</span>&nbsp;</dt>
-			<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>
-		</dl>
+		{*<span class="week_rank_title">Week Rank:</span>*}
+		{*<div class="week_best_div">*}
+		{*<span id="week_best_span">The Best:</span>*}
+		{*<fieldset id="week_best">*}
+			{*<img alt="hacklu" src="photo.png"></img>*}
+		{*</fieldset>*}
+		{*</div>*}
+		{*<fieldset class="week_rank">*}
+		{*<dl class="dl_rank">*}
+			{*<dt><span class="week_rank_span">NO.2:</span>&nbsp;</dt>*}
+			{*<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>*}
+		{*</dl>*}
+		{*<dl class="dl_rank">*}
+			{*<dt><span class="week_rank_span">NO.3:</span>&nbsp;</dt>*}
+			{*<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>*}
+		{*</dl>*}
+		{*<dl class="dl_rank">*}
+			{*<dt><span class="week_rank_span">NO.4:</span>&nbsp;</dt>*}
+			{*<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>*}
+		{*</dl>*}
+		{*<dl class="dl_rank">*}
+			{*<dt><span class="week_rank_span">NO.5:</span>&nbsp;</dt>*}
+			{*<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>*}
+		{*</dl>*}
 
-		</fieldset>
-		<div class="week_best_div">
-			<span id="week_worst_span">The Worst:</span>
-			<fieldset id="week_worst" class="week_rank">
-				<img alt="hacklu" src="photo.png"></img>
-			</fieldset>
-		</div>
+		{*</fieldset>*}
+		{*<div class="week_best_div">*}
+			{*<span id="week_worst_span">The Worst:</span>*}
+			{*<fieldset id="week_worst" class="week_rank">*}
+				{*<img alt="hacklu" src="photo.png"></img>*}
+			{*</fieldset>*}
+		{*</div>*}
 	</div>
 
 <div id="top">
 <fieldset id="f_group">
 {*use js set current *}
-<legend><a href="##" class="" id="group1">Group1</a>/<a href="##" id="group2">Group2</a></legend>
+<legend><a href="index.php?level=1" class="" id="group1">Group1</a>/<a href="index.php?level=2" id="group2">Group2</a></legend>
 
 <div class="container">
 	<p><a href="##" class="s_txt0"><span>&lt;&lt;First</span></a></p>
