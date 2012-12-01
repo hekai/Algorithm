@@ -16,6 +16,10 @@ if(isset($_GET['uid'])) {
 		$_SESSION['photoPath']=$user_result['photoPath'];
 		header("Location: index.php");
 		exit;
+	}else{
+		$name = $_GET['name'];
+		header('Location: user_profile.php?uid='.$uid.'&&name='.$name);
+		exit;
 	}
 }
 ?>

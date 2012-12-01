@@ -22,6 +22,11 @@ function get_UserByUid($uid) {
 	return mydb_query_return_first_item($query);
 }
 
+function add_User($uid,$name,$sex,$nickname,$pojusername,$email,$team){
+	$query = "insert into user(uid,stat,sex,name,nickname,POJ_user_name,mail,type,team) values($uid,0,'$sex','$name','$nickname','$pojusername','$email',2,$team);";
+	mydb_query_without_return($query);
+}
+
 //End User Operator
 
 //Problem Operator

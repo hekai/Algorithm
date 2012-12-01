@@ -5,7 +5,7 @@
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=856922159" type="text/javascript" charset="utf-8"></script>
 <?php 
 	if(isset($_GET['logout']))
-		echo '<script>WB2.logout();;</script>';
+		echo '<script>WB2.logout(function(){window.location.href=\'logout.php\';});;</script>';
 ?>
 <script type="text/javascript">
 
@@ -15,7 +15,8 @@ WB2.anyWhere(function(W){
         type:"1,2",
         callback : {
             login:function(o){	//登录后的回调函数
-            	window.location.href='sinaredirect.php?uid='+o.id;
+            	window.location.href='sinaredirect.php?uid='+o.id+'&&name='+o.name;
+            	//window.location.href='user_profile.php?uid='+o.id+'&&name='+o.name+'&&image='+o.avatar_large;
             },	
             logout:function(){	//退出后的回调函数
             	window.location.href='logout.php';
