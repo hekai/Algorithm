@@ -28,6 +28,9 @@ if($problems!=null){
 	}
 	$smarty->assign('problems',$problems);
 }
+else
+	$smarty->assign('problems','');
+	
 $smarty->assign('name',$_SESSION['name']);
 $smarty->assign('week',$week);
 $smarty->assign('group',$group);

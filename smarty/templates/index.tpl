@@ -151,10 +151,11 @@
 
 				var week= getWeek();
 				var userid= getUserID();
+				var level=getGroup();
 				if(pojNO.length==0 || pojTitle.length==0)
 					return false;
 
-				var sendData={ userID:userid,week:week,title:pojTitle,pojID:pojNO,content:pojDesription,source:pojSource,insert:"- -!" };
+				var sendData={ userID:userid,week:week,title:pojTitle,pojID:pojNO,content:pojDesription,source:pojSource,level:level,insert:"- -!" };
 				$.post('ProblemOperator.php',sendData,function(data){
 						console.log("publish problem success");
 						$("#diag_no").val("");
@@ -334,6 +335,7 @@
 	<p><a href="##" class="s_txt0"><span>Last&gt;&gt;</span></a></p>
 	<a id="add_algo" class="btn-p"><span class="publish">publish!</span></a>
 </div>
+{if $problems != ''}
 {foreach $problems as $problem}
 {*<h1>{$test[$problem@index].a}</h1>*}
 <div class="algo">
@@ -403,6 +405,7 @@
 </div>
 </div>
 {/foreach}
+{/if}
 
 </fieldset>
 </div>
