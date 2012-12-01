@@ -233,35 +233,41 @@
 
 
 <div id="text">
-<div id="left_rank">
-<span>The Best</span>
-<fieldset class="week_rank" id="week_best">
-		<img alt="hacklu" src="/Algorithm/upload/hacklu.jpg"></img>
-</fieldset>
-<fieldset class="week_rank">
-{*<legend><span>Rank</span></legend>*}
-	<dl class="dl_rank">
-		<dt><span>2</span></dt>
-		<dd><a href="#"><img alt="hacklu" src="/Algorithm/upload/hacklu.jpg"></img></a></dd>
-	</dl>
-	<dl class="dl_rank">
-		<dt><span>3</span></dt>
-		<dd><a href="#"><img alt="hacklu" src="/Algorithm/upload/hacklu.jpg"></img></a></dd>
-	</dl>
-	<dl class="dl_rank">
-		<dt><span>4</span></dt>
-		<dd><a href="#"><img alt="hacklu" src="/Algorithm/upload/hacklu.jpg"></img></a></dd>
-	</dl>
-	<dl class="dl_rank">
-		<dt><span>5</span></dt>
-		<dd><a href="#"><img alt="hacklu" src="/Algorithm/upload/hacklu.jpg"></img></a></dd>
-	</dl>
+	<div id="left_rank" class="left_tab">
+		<span class="week_rank_title">Week Rank:</span>
+		<hr>
+		<div class="week_best_div">
+		<span id="week_best_span">The Best:</span>
+		<fieldset id="week_best">
+			<img alt="hacklu" src="photo.png"></img>
+		</fieldset>
+		</div>
+		<fieldset class="week_rank">
+		<dl class="dl_rank">
+			<dt><span class="week_rank_span">NO.2:</span>&nbsp;</dt>
+			<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>
+		</dl>
+		<dl class="dl_rank">
+			<dt><span class="week_rank_span">NO.3:</span>&nbsp;</dt>
+			<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>
+		</dl>
+		<dl class="dl_rank">
+			<dt><span class="week_rank_span">NO.4:</span>&nbsp;</dt>
+			<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>
+		</dl>
+		<dl class="dl_rank">
+			<dt><span class="week_rank_span">NO.5:</span>&nbsp;</dt>
+			<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>
+		</dl>
 
-</fieldset>
-<fieldset id="week_worst" class="week_rank">
-		<img alt="hacklu" src="/Algorithm/upload/hacklu.jpg"></img>
-</fieldset>
-</div>
+		</fieldset>
+		<div class="week_best_div">
+			<span id="week_worst_span">The Worst:</span>
+			<fieldset id="week_worst" class="week_rank">
+				<img alt="hacklu" src="photo.png"></img>
+			</fieldset>
+		</div>
+	</div>
 
 <div id="top">
 <fieldset id="f_group">
