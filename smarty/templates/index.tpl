@@ -235,7 +235,6 @@
 <div id="text">
 	<div id="left_rank" class="left_tab">
 		<span class="week_rank_title">Week Rank:</span>
-		<hr>
 		<div class="week_best_div">
 		<span id="week_best_span">The Best:</span>
 		<fieldset id="week_best">
