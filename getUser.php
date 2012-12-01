@@ -1,5 +1,6 @@
 <?php 
 header("content-type:text/html; charset=utf-8");
+include 'permission.php';
 require_once ('include/db_operator_class.php');
 echo '<h3>get_Users</h3>';
 $users = get_Users();

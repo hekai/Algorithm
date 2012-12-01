@@ -1,16 +1,11 @@
 <?php
-//session_start();
-//if(!isset($_SESSION['login'])){
-	//header("Location: login.php");
-	//exit;
-//}
 header("content-type:text/html; charset=utf-8");
+include 'permission.php';
 require_once('include/smarty_setup.php');
 require_once 'include/db_operator_class.php';
 
 $smarty = new Algo();
 
-$smarty->assign('name','hacklu');
 
 			//$Algo = array('user_name' => 'hacklu',
 				//'user_nickname' => 'hacklu',
@@ -54,6 +49,7 @@ if($problems!=null){
 	}
 	$smarty->assign('problems',$problems);
 }
+$smarty->assign('name','hacklu');
 $smarty->assign('week',"1");
 $smarty->assign('group',"1");
 $smarty->assign('userid',"1");

@@ -1,11 +1,12 @@
 <?php
+include 'permission.php';
 require_once ('include/db_operator_class.php');
 $probID = $_POST['probID'];
 $content = $_POST['content'];
 $userID = $_POST['userID'];
 
 if(isset($_POST['insert'])){
-	add_CommentInProb($userID, $probID, $content);
+	add_CommentInProb($probID, $userID, $content);
 	echo 'test1';
 	echo $userID;
 	echo $probID;

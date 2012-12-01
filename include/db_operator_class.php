@@ -26,7 +26,7 @@ function get_UserByUid($uid) {
 
 //Problem Operator
 function get_ProblemsOnWeek($week) {
-	$query = "SELECT p.id,p.userID,u.name,u.nickname,u.photoPath,p.pojProblemID,p.title,p.time,p.source FROM problems AS p,user AS u where p.stat=0 and p.week=$week and p.userID = u.id and u.stat = 0;";
+	$query = "SELECT p.id,p.userID,u.name,u.nickname,u.photoPath,p.pojProblemID,p.title,p.time,p.source FROM problems AS p,user AS u where p.stat=0 and p.week=$week and p.userID = u.id and u.stat = 0 order by p.time;";
 	return mydb_query_return_double_array($query);
 }
 
@@ -53,7 +53,7 @@ function get_ScoresByWeek($week){
 }
 
 function get_ScoresByProb($probId) {
-	$query = "SELECT s.id,s.userID,u.name,u.nickname,u.photoPath,s.AC,s.ACtime,s.lastModify FROM score AS s, user AS u where s.stat=0 and s.probID=$probId AND u.stat = 0 AND s.userID = u.id order by s.AC DESC,s.ACtime;";
+	$query = "SELECT s.id,s.userID,u.name,u.nickname,u.photoPath,s.AC,s.ACtime,s.lastModify FROM score AS s, user AS u where s.stat=0 and s.probID=$probId AND u.stat = 0 AND s.userID = u.id GROUP BY s.userID order by s.AC DESC,s.ACtime;";
 	return mydb_query_return_double_array($query);
 }
 

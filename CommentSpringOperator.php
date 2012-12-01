@@ -1,4 +1,5 @@
 <?php
+include 'permission.php';
 require_once ('include/db_operator_class.php');
 $content = $_POST['content'];
 
