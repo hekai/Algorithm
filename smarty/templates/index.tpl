@@ -218,6 +218,22 @@
 
 
 				});
+			$(".ac_score").click(function(){
+					var scoreID = $(this).next().html();
+					 var $link = 'getAC.php?scoreID=' + scoreID;
+
+					 $.getJSON($link,function(data){
+						 var $dialog = $('<div><span>'+ data['code']+'</span></div>').dialog({
+						 autoOpen:true,
+						 model:false,
+						 position:{ my:"center",at:"top"},
+						 title:data['nickname'] + " 'code",
+						 width:500,
+						 height:500});
+
+					 });
+
+			});
 
 		});
 </script>
@@ -303,7 +319,7 @@
 			<div class="ac_info">
 					{foreach $problem.score as $ac}
 						{if $ac.AC eq '1'}
-							<img src="{$ac.photoPath}" title="{$ac.nickname|cat:' '|cat:$ac.ACtime}"><div class="hide_data scoreID"></div></img>
+							<img class="ac_score" src="{$ac.photoPath}" title="{$ac.nickname|cat:' '|cat:$ac.ACtime}"><div class="hide_data scoreID">{$ac.id}</div></img>
 						{/if}
 					{/foreach}
 			</div>
