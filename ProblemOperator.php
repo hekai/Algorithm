@@ -9,7 +9,8 @@ $source = $_POST['source'];
 if(isset($_POST['insert'])){
 	$userID = $_POST['userID'];
 	$week = $_POST['week'];
-	add_Problem($userID, $pojID, $title, $content, $week, $source);
+	$level = $_POST['level'];
+	add_Problem($userID, $pojID, $title, $content, $week, $source,$level);
 }else if(isset($_POST['update'])){
 	$probID = $_POST['probID'];
 	update_ProblemContent($probID,$pojID, $title, $content, $source);

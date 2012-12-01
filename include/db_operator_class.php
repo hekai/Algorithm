@@ -25,8 +25,8 @@ function get_UserByUid($uid) {
 //End User Operator
 
 //Problem Operator
-function get_ProblemsOnWeek($week) {
-	$query = "SELECT p.id,p.userID,u.name,u.nickname,u.photoPath,p.pojProblemID,p.title,p.time,p.source FROM problems AS p,user AS u where p.stat=0 and p.week=$week and p.userID = u.id and u.stat = 0 order by p.time;";
+function get_ProblemsOnWeek($week,$level) {
+	$query = "SELECT p.id,p.userID,u.name,u.nickname,u.photoPath,p.pojProblemID,p.title,p.time,p.source FROM problems AS p,user AS u where p.stat=0 and p.week=$week and p.level=$level and p.userID = u.id and u.stat = 0 order by p.time;";
 	return mydb_query_return_double_array($query);
 }
 
@@ -40,8 +40,8 @@ function update_ProblemContent($id,$pojID,$title,$content,$source){
 	mydb_query_without_return($query);
 }
 
-function add_Problem($userId,$pojID,$title,$content,$week,$source){
-	$query = "insert into problems(stat,userID,pojProblemID,title,Context,time,week,source) values (0,$userId,$pojID,'$title','$content',now(),$week,'$source');";
+function add_Problem($userId,$pojID,$title,$content,$week,$source,$level){
+	$query = "insert into problems(stat,userID,pojProblemID,title,Context,time,week,source,level) values (0,$userId,$pojID,'$title','$content',now(),$week,'$source',$level);";
 	mydb_query_without_return($query);
 }
 //End Problem Operator
@@ -122,6 +122,13 @@ function add_CommentInSpring($week,$team,$userId,$content){
 	mydb_query_without_return($query);
 }
 //End Comment for spring operator
+
+//Rank
+function getRandOnWeek($week,$team){
+	$query = "SELECT s.userID,s.probID,u.name,u.nickname,u.photoPath,count(distinct s.probID) 'count' FROM score AS s,user AS u where s.stat=0 and s.userID=u.id and u.team=$team and s.ac=1 AND s.probID IN (SELECT id FROM problems AS p WHERE p.stat=0 AND p.week=$week) group by s.userID order by count(distinct s.probID) desc;";
+	return mydb_query_return_double_array($query);
+}
+//End Rank
 
 //urlencode
 function my_urlencode_double($array){

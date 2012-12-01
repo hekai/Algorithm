@@ -11,6 +11,7 @@ if(isset($_GET['uid'])) {
 		$_SESSION['userid']=$user_result['id'];
 		$_SESSION['name']=$user_result['name'];
 		$_SESSION['nickname']=$user_result['nickname'];
+		$_SESSION['week']=1;
 		$_SESSION['team']=$user_result['team'];
 		$_SESSION['photoPath']=$user_result['photoPath'];
 		header("Location: index.php");
