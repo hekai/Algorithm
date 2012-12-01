@@ -1,4 +1,5 @@
 <?php
+include 'permission.php';
 require_once 'include/db_operator_class.php';
 
 	$form_data_name = $_FILES['form_data']['name'];

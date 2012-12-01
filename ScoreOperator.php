@@ -1,4 +1,5 @@
 <?php
+include 'permission.php';
 require_once ('include/db_operator_class.php');
 $code = $_POST['code'];
 $ac = $_POST['ac'];

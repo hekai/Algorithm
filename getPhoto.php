@@ -1,5 +1,6 @@
 <?php
 require_once 'include/db_operator_class.php';
+include 'permission.php';
 if(isset($_GET['userID'])) {
 	$userId = $_GET['userID'];
 	$query = "SELECT u.photoPath,u.photoType FROM user AS u where id=$userId";

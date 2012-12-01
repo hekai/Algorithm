@@ -1,4 +1,5 @@
 <?php
+include 'permission.php';
 require_once ('include/db_operator_class.php');
 $title = $_POST['title'];
 $pojID = $_POST['pojID'];
