@@ -7,6 +7,8 @@
 	unset($_SESSION['nickname']);
 	unset($_SESSION['team']);
 	unset($_SESSION['photoPath']);
+	session_unset();
+	 session_destroy();
 	
 	header('Location: login.php');
 ?>

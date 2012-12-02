@@ -1,14 +1,18 @@
 <?php
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL | E_STRICT);
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL | E_STRICT);
 
 define('SMARTY_DIR','/home/hacklu/smarty/libs/');
-define('SMARTY_WORK_DIR','/var/www/Algorithm/smarty/');
+define('SMARTY_WORK_DIR','/home/hacklu/hacklu.com/Algorithm/smarty/');
 define('CSS_DIR','/Algorithm/include/css/');
 
+ date_default_timezone_set('Asia/Shanghai');
+//function myHandlerForMinorErrors(){};
+//set_error_handler('myHandlerForMinorErrors', E_NOTICE | E_STRICT).
 //load smarty library
 require_once(SMARTY_DIR . 'Smarty.class.php');
+
 
 class Algo extends Smarty {
 
@@ -26,7 +30,7 @@ class Algo extends Smarty {
 		$this->assign('app_name', 'Algorithm');
 		$this->assign('CSS_DIR',CSS_DIR);
 
-		$this->debugging = true;
+		//$this->debugging = true;
 		$this->force_compile = true;
 	}
 }

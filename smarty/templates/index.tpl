@@ -75,7 +75,7 @@
 
 					 $.getJSON($link,function(data){
 
-						$('#left_rank').children().remove();
+						{*$('#left_rank').children().remove();*}
 					 
 						$.each(data,function(i,d){
 							{*var insert='<dl class="dl_comments s_line1 no_border_line">';*}
@@ -87,6 +87,7 @@
 
 							var m=i+1;
 							if(i==0){
+						$('#left_rank').children().remove();
 
 								var insert='<span class="week_rank_title">Week Rank:</span><div class="week_best_div"><span id="week_best_span">The Best:</span><fieldset id="week_best"><img alt="' + d['nickname'] + '" src="'+d['photoPath'] + '"></img></fieldset></div><fieldset  class="week_rank"></fieldset>';
 								$('#left_rank').append(insert);
@@ -151,10 +152,11 @@
 
 				var week= getWeek();
 				var userid= getUserID();
+				var level = getGroup();
 				if(pojNO.length==0 || pojTitle.length==0)
 					return false;
 
-				var sendData={ userID:userid,week:week,title:pojTitle,pojID:pojNO,content:pojDesription,source:pojSource,insert:"- -!" };
+				var sendData={ userID:userid,week:week,title:pojTitle,pojID:pojNO,content:pojDesription,source:pojSource,level:level,insert:"- -!" };
 				$.post('ProblemOperator.php',sendData,function(data){
 						console.log("publish problem success");
 						$("#diag_no").val("");
@@ -288,7 +290,7 @@
 
 <div id="text">
 	<div id="left_rank" class="left_tab">
-		{*<span class="week_rank_title">Week Rank:</span>*}
+		<span class="week_rank_title">Week Rank:</span>
 		{*<div class="week_best_div">*}
 		{*<span id="week_best_span">The Best:</span>*}
 		{*<fieldset id="week_best">*}
@@ -334,6 +336,7 @@
 	<p><a href="##" class="s_txt0"><span>Last&gt;&gt;</span></a></p>
 	<a id="add_algo" class="btn-p"><span class="publish">publish!</span></a>
 </div>
+{if $problems != ''}
 {foreach $problems as $problem}
 {*<h1>{$test[$problem@index].a}</h1>*}
 <div class="algo">
@@ -403,7 +406,7 @@
 </div>
 </div>
 {/foreach}
-
+{/if}
 </fieldset>
 </div>
 

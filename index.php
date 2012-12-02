@@ -18,6 +18,7 @@ if(isset($_GET['level'])){
 	$problems = get_ProblemsOnWeek($week,$team);
 }
 
+
 if($problems!=null){
 	for ($i= 0;$i< count($problems); $i++){
 		$score = get_ScoresByProb($problems[$i]['id']);
@@ -26,7 +27,8 @@ if($problems!=null){
 		$problems[$i]['commentCount'] = $commentCount['count(*)'];
 	}
 	$smarty->assign('problems',$problems);
-}else{
+}
+else{
 	$smarty->assign('problems','');
 }
 $smarty->assign('name',$_SESSION['name']);
