@@ -8,7 +8,8 @@ $scoreId = $_GET['scoreID'];
 $scores = get_ScoreContent($scoreId);
 
 if($scores!=null){
-	$scores = my_urlencode_single($scores);
-	echo urldecode(json_encode($scores));
+// 	$scores = my_urlencode_single($scores);
+// 	echo urldecode(json_encode($scores));
+	echo json_encode($scores);
 }
 ?>

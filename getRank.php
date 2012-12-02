@@ -7,8 +7,8 @@ require_once ('include/db_operator_class.php');
 	$team = $_GET['team'];
 	$weekrank = getRandOnWeek($week,$team);
 	if($weekrank!=null){
-		$weekrank = my_urlencode_double($weekrank);
-		$json = urldecode(json_encode($weekrank));
-		echo $json;
+// 		$weekrank = my_urlencode_double($weekrank);
+// 		$json = urldecode(json_encode($weekrank));
+		echo json_encode($weekrank);
 	}
 ?>
