@@ -40,6 +40,11 @@ function get_ProblemContentById($id){
 	return mydb_query_return_first_item($query);
 }
 
+function get_ProblemSimpleById($id){
+	$query = "SELECT p.id,p.userID,u.name,u.nickname,u.photoPath,p.pojProblemID,p.title,p.time,p.source FROM problems AS p,user AS u where p.stat=0 and p.id=$id and u.stat=0 and p.userID=u.id;";
+	return mydb_query_return_first_item($query);
+}
+
 function update_ProblemContent($id,$pojID,$title,$content,$source){
 	$query = "UPDATE problems AS p SET p.pojProblemID = $pojID , p.title = '$title' , p.Context='$content' , p.source = '$source' where p.stat=0 and p.id=$id;";
 	mydb_query_without_return($query);
