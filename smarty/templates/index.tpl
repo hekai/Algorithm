@@ -75,7 +75,7 @@
 
 					 $.getJSON($link,function(data){
 
-						$('#left_rank').children().remove();
+						{*$('#left_rank').children().remove();*}
 					 
 						$.each(data,function(i,d){
 							{*var insert='<dl class="dl_comments s_line1 no_border_line">';*}
@@ -87,6 +87,7 @@
 
 							var m=i+1;
 							if(i==0){
+						$('#left_rank').children().remove();
 
 								var insert='<span class="week_rank_title">Week Rank:</span><div class="week_best_div"><span id="week_best_span">The Best:</span><fieldset id="week_best"><img alt="' + d['nickname'] + '" src="'+d['photoPath'] + '"></img></fieldset></div><fieldset  class="week_rank"></fieldset>';
 								$('#left_rank').append(insert);
@@ -151,7 +152,7 @@
 
 				var week= getWeek();
 				var userid= getUserID();
-				var level=getGroup();
+				var level = getGroup();
 				if(pojNO.length==0 || pojTitle.length==0)
 					return false;
 
@@ -289,7 +290,7 @@
 
 <div id="text">
 	<div id="left_rank" class="left_tab">
-		{*<span class="week_rank_title">Week Rank:</span>*}
+		<span class="week_rank_title">Week Rank:</span>
 		{*<div class="week_best_div">*}
 		{*<span id="week_best_span">The Best:</span>*}
 		{*<fieldset id="week_best">*}
@@ -406,7 +407,6 @@
 </div>
 {/foreach}
 {/if}
-
 </fieldset>
 </div>
 
