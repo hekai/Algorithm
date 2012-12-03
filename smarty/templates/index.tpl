@@ -32,6 +32,10 @@
 <script type="text/javascript">
 	$(function(){
 			var currentProblemID;
+			var currentProblemDetail;
+			var canPublish=true;
+			var canComment=true;
+			var canAC=true;
 			function getWeek(){
 			return $("#secret_week").html();
 			}
@@ -44,8 +48,10 @@
 			function freshCommet(problem_detail){
 
 						var problemID=parseInt(problem_detail.children('span:first').html());
-						var sendData="type=1&&probID="+problemID;
+						var sendData="type=prob&&probID="+problemID;
 						$.getJSON('getComment.php',sendData,function(data){
+						if(data==null)
+							return false;
 
 						var comments_lists= problem_detail.children('div:last').children().children().children('div:last');
 						comments_lists.children().remove();
@@ -67,6 +73,27 @@
 						});
 
 			};
+			function freshAc_info(problem_detail){
+
+						var problemID=parseInt(problem_detail.children('span:first').html());
+						var sendData="type=all&&probID="+problemID;
+						$.getJSON('getAC.php',sendData,function(data){
+						if(data==null)
+							return false;
+
+						var ac_info = problem_detail.children('div:first').next().next();
+						ac_info.children().remove();
+
+						$.each(data,function(i,d){
+							{*<img class="ac_score" src="{$ac.photoPath}" title="{$ac.nickname|cat:' '|cat:$ac.ACtime}"><div class="hide_data scoreID">{$ac.id}</div></img>*}
+							var insert='<img class="ac_score" src="' + d['photoPath'] +'" title="' +d['nickname'] + ' ' + d['ACtime'] +'"><div class="hide_data scoreID">' + d['id'] +'</div></img>';
+
+							ac_info.append(insert);
+							});
+
+						});
+
+			}
 			function getRank(){
 					var week = getWeek();
 					var team = getGroup();
@@ -77,6 +104,8 @@
 
 						{*$('#left_rank').children().remove();*}
 					 
+						if(data==null)
+							return false;
 						$.each(data,function(i,d){
 							{*var insert='<dl class="dl_comments s_line1 no_border_line">';*}
 							{*insert+='<dt><a href="##"><img alt="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';*}
@@ -125,6 +154,9 @@
 
 				var userid = getUserID();
 				
+				if(canComment==false)
+					return false;
+				canComment = false;
 				var sendData={ userID:userid,probID:problemID,content:text.val(),insert:"- -!" };
 				$.post('CommentProbOperator.php',sendData,function(data){
 						console.log("add comment for problem success");
@@ -132,7 +164,7 @@
 						freshCommet(problem_detail);
 						text.val("");
 
-				});
+				}).complete(function(){ canComment = true; });
 
 			});
 
@@ -144,7 +176,7 @@
 			    position:{ my:"center",at:"top"},
 			    buttons: {
 				"Publish": function() {
-				
+			        var this_dialog = this;	
 				var pojNO=$("#diag_no").val();
 				var pojTitle=$("#diag_title").val();
 				var pojSource=$("#diag_source").val();
@@ -153,9 +185,13 @@
 				var week= getWeek();
 				var userid= getUserID();
 				var level = getGroup();
-				if(pojNO.length==0 || pojTitle.length==0)
+				if(pojNO.length==0 || pojTitle.length==0){
 					return false;
+					}
 
+				if(canPublish== false)
+					return false;
+				canPublish = false;
 				var sendData={ userID:userid,week:week,title:pojTitle,pojID:pojNO,content:pojDesription,source:pojSource,level:level,insert:"- -!" };
 				$.post('ProblemOperator.php',sendData,function(data){
 						console.log("publish problem success");
@@ -164,11 +200,13 @@
 						$("#diag_source").val("");
 						$("#diag_description").val("");
 
-				});
+				    $( this_dialog).dialog( "close" );
+						location.reload();
+				}).complete(function(){ canPublish = true; });
 
 				},
 				Cancel: function() {
-				    $( this ).dialog( "close" );
+				    $(this).dialog( "close" );
 				}
 			    },
 			    close: function() {
@@ -182,8 +220,10 @@
 			    position:{ my:"center",at:"top"},
 			    buttons: {
 				"Submit": function() {
+				var this_dialog = this;
 
 				var probID = currentProblemID;
+				var problemDetail = currentProblemDetail;
 				var code = $("#diag_ac_code").val();
 				if(code.length==0)
 					return false;
@@ -198,25 +238,24 @@
 
 				var type="insert ni mei";
 
+				if(canAC== false)
+					return false;
+				canAC = false;
 				var sendData={ code:code,ac:ac,language:language,userID:userid,probID:probID,insert:type };
 				$.post('ScoreOperator.php',sendData,function(data){
 						console.log("ac "+ probID+" success");
 					//	$(this).dialog( "close" );
 						$("#diag_ac_code").val("");
 						getRank();
+						freshAc_info(problemDetail);
+						$( this_dialog).dialog( "close" );
 						
-				});
-				
+				}).complete(function(){ canAC = true; });
 				},
 				Cancel: function() {
 				    $( this ).dialog( "close" );
 				}
 			    },
-			    {*open:function() {*}
-					      {*$('.ui-widget-overlay').bind('click', function() {*}
-					      {*$(this).dialog('close');*}
-						  {*});*}
-					  {*},*}
 			    close: function() {
 			    }
 			});
@@ -226,6 +265,7 @@
 				});
 			$(".ac_button").click(function() {
 					 var problem_detail = $(this).parent().parent().parent();
+					 currentProblemDetail = problem_detail;
 					 currentProblemID = parseInt(problem_detail.children('span:first').html());
 					 var problemPojId = problem_detail.children('div:first').next().children().html();
 					$("#dialog-ac").dialog({ title:'AC '+ problemPojId +' ?'});
@@ -241,7 +281,7 @@
 			$(".problem_link").click(function(){
 					 var problem_detail = $(this).parent().parent();
 					 currentProblemID = problem_detail.children('span:first').html();
-					 var $link = 'getContent.php?probID=' + currentProblemID;
+					 var $link = 'getContent.php?type=detail&&probID=' + currentProblemID;
 
 					 $.getJSON($link,function(data){
 						 var $dialog = $('<div><span>'+ data['Context']+'</span></div>').dialog({
@@ -258,9 +298,9 @@
 				});
 			$(".ac_score").click(function(){
 					var scoreID = $(this).next().html();
-					 var $link = 'getAC.php?scoreID=' + scoreID;
+					 var $link = 'getAC.php?scoreID=' + scoreID +'&type=detail';
 
-					 $.getJSON($link,function(data){
+					 var jqxhr=$.getJSON($link,function(data){
 						 var $dialog = $('<div><span>'+ data['code']+'</span></div>').dialog({
 						 autoOpen:true,
 						 model:false,
@@ -269,7 +309,9 @@
 						 width:500,
 						 height:500});
 
-					 });
+					 }).success(function() { console.log("success")})
+						.error(function(data){ console.log("error");console.log(data)})
+						.complete(function(){ console.log(" get ac score compelete")});
 
 			});
 
