@@ -8,14 +8,23 @@ $smarty = new Algo();
 
 $week=$_SESSION['week'];
 $team=$_SESSION['team'];
+if(isset($_GET['current_week'])){
+	$current_week=$_GET['current_week'];
+	if($current_week<=0)
+		$current_week=1;
+	if($current_week>$week)
+		$current_week=$week;
+}else{
+	$current_week=$week;
+}
 
 if(isset($_GET['level'])){
 	$level=$_GET['level'];
 	$group=$level;
-	$problems = get_ProblemsOnWeek($week,$level);
+	$problems = get_ProblemsOnWeek($current_week,$level);
 }else{
 	$group=$team;
-	$problems = get_ProblemsOnWeek($week,$team);
+	$problems = get_ProblemsOnWeek($current_week,$team);
 }
 
 
@@ -33,6 +42,7 @@ else{
 }
 $smarty->assign('name',$_SESSION['name']);
 $smarty->assign('week',$week);
+$smarty->assign('current_week',$current_week);
 $smarty->assign('group',$group);
 $smarty->assign('userid',$_SESSION['userid']);
 

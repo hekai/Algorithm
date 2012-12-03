@@ -1,5 +1,6 @@
 <?php
 // include 'permission.php';
+session_start();
 require_once 'include/db_operator_class.php';
 
 	$form_data_name = $_FILES['form_data']['name'];
@@ -16,21 +17,35 @@ require_once 'include/db_operator_class.php';
 	$pojusername=$_POST['poj_username'];
 	$group=$_POST['group'];
 	
-	if($uid==null || $name==null|| $nickname==null|| $email==null|| $pojusername==null ||$form_data==null){
+	$upload=$_POST['upload'];
+	
+	if($uid==null || $name==null|| $nickname==null|| $email==null|| $pojusername==null){
 		echo 'something is null!!! check again!!!';
 		exit;
 	}
 	
-	add_User($uid, $name, $sex, $nickname, $pojusername, $email, $group);
 	
-	$user_result = get_UserByUid($uid);
-	if($user_result!=null){
-		$userID = $user_result['id'];
-	}else{
+	if($upload=='insert')
+		$userID = add_User($uid, $name, $sex, $nickname, $pojusername, $email, $group);
+	else if($upload=='update'){
+		$userID = $_SESSION['userid'];
+		update_User($userID, $name, $sex, $nickname, $pojusername, $email, $group);
+	}
+		
+	if($userID<=0){
 		echo 'insert error.';
 		exit;
 	}
 	
+	if($form_data==null){
+		if($upload=='insert'){
+			echo 'you did not upload the image file.';
+			exit;
+		}else if($upload=='update'){
+			header("Location: sinaredirect.php?uid=".$uid);
+			exit;
+		}
+	}
 // 	echo $form_data_name . ' - ' . $form_data_size . ' - ' . $form_data_type . ' - ' . $form_data;
 	
 	if($form_error > 0){

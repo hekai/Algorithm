@@ -325,7 +325,7 @@
 <body>
 <div id="header">
 <div class="bg_line">
-<span class="hello_world">Hello <a>{$name}</a>, Welcome to Algo...</span><span class="goodbye"><a href="login.php?logout">logout</a></span>
+<span class="hello_world">Hello <a>{$name}</a>, Welcome to Algo...</span><span class="goodbye"><a href="user_profile.php?type=update">Setting</a>&nbsp;&nbsp;&nbsp;<a href="login.php?logout">Logout</a></span>
 </div>
 </div>
 

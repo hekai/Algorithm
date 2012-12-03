@@ -3,27 +3,47 @@ require_once ('config.php');
 
 //User Operator
 function get_Users() {
-	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM user AS u WHERE u.stat=0;";
+	$query = "SELECT * FROM user AS u WHERE u.stat=0;";
 	return mydb_query_return_double_array($query);
 }
 
 function get_UserById($id) {
-	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM user AS u WHERE u.stat=0 and u.id = $id LIMIT 1;";
+	$query = "SELECT * FROM user AS u WHERE u.stat=0 and u.id = $id LIMIT 1;";
 	return mydb_query_return_first_item($query);
 }
 
 function get_UserByEmail($email) {
-	$query = "SELECT u.id,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM user AS u WHERE u.stat=0 and u.mail = '$email' LIMIT 1";
+	if (!get_magic_quotes_gpc()){
+		$email = addslashes($email);
+	}
+	$query = "SELECT * FROM user AS u WHERE u.stat=0 and u.mail = '$email' LIMIT 1";
 	return mydb_query_return_first_item($query);
 }
 
 function get_UserByUid($uid) {
-	$query = "SELECT u.id,u.uid,u.name,u.nickname,u.POJ_user_name,u.type,u.team,u.photoPath FROM user AS u WHERE u.stat=0 and u.uid = $uid LIMIT 1";
+	$query = "SELECT * FROM user AS u WHERE u.stat=0 and u.uid = $uid LIMIT 1";
 	return mydb_query_return_first_item($query);
 }
 
 function add_User($uid,$name,$sex,$nickname,$pojusername,$email,$team){
+	if (!get_magic_quotes_gpc()){
+		$name = addslashes($name);
+		$nickname = addslashes($nickname);
+		$pojusername = addslashes($pojusername);
+		$email = addslashes($email);
+	}
 	$query = "insert into user(uid,stat,sex,name,nickname,POJ_user_name,mail,type,team) values($uid,0,'$sex','$name','$nickname','$pojusername','$email',2,$team);";
+	return mydb_query_without_return($query);
+}
+
+function update_User($id,$name,$sex,$nickname,$pojusername,$email,$team){
+	if (!get_magic_quotes_gpc()){
+		$name = addslashes($name);
+		$nickname = addslashes($nickname);
+		$pojusername = addslashes($pojusername);
+		$email = addslashes($email);
+	}
+	$query = "update user as u set u.name='$name' , u.sex = '$sex' , u.nickname='$nickname',u.POJ_user_name='$pojusername',u.mail='$email',u.team=$team where u.id=$id";
 	mydb_query_without_return($query);
 }
 
@@ -46,13 +66,23 @@ function get_ProblemSimpleById($id){
 }
 
 function update_ProblemContent($id,$pojID,$title,$content,$source){
+	if (!get_magic_quotes_gpc()){
+		$title = addslashes($title);
+		$content = addslashes($content);
+		$source = addslashes($source);
+	}
 	$query = "UPDATE problems AS p SET p.pojProblemID = $pojID , p.title = '$title' , p.Context='$content' , p.source = '$source' where p.stat=0 and p.id=$id;";
 	mydb_query_without_return($query);
 }
 
 function add_Problem($userId,$pojID,$title,$content,$week,$source,$level){
+	if (!get_magic_quotes_gpc()){
+		$title = addslashes($title);
+		$content = addslashes($content);
+		$source = addslashes($source);
+	}
 	$query = "insert into problems(stat,userID,pojProblemID,title,Context,time,week,source,level) values (0,$userId,$pojID,'$title','$content',now(),$week,'$source',$level);";
-	mydb_query_without_return($query);
+	return mydb_query_without_return($query);
 }
 //End Problem Operator
 
@@ -73,19 +103,26 @@ function get_ScoreContent($id){
 }
 
 function update_Score($id,$code,$ac,$language){
+	if (!get_magic_quotes_gpc()){
+		$code = addslashes($code);
+	}
 	$query = "UPDATE score AS s SET s.code='$code' , s.AC=$ac , s.lastModify=now() , s.language = '$language' WHERE s.stat=0 and s.id=$id;";
 	mydb_query_without_return($query);
 }
 
 function add_Score($probId,$userId,$code,$ac,$language){
+	if (!get_magic_quotes_gpc()){
+		$code = addslashes($code);
+	}
 	if($ac>0){
 		$query = "INSERT INTO score(probID,userID,AC,stat,code,language,ACtime,lastModify) values($probId,$userId,1,0,'$code','$language',now(),now());";
-		mydb_query_without_return($query);
+		return mydb_query_without_return($query);
 	}else{
 		$query = "INSERT INTO score(probID,userID,AC,stat,code,language,lastModify) values($probId,$userId,0,0,'$code','$language',now());";
-		mydb_query_without_return($query);
+		return mydb_query_without_return($query);
 	}
 }
+
 //End Score Operator
 
 //Comment for problem operator
@@ -100,13 +137,19 @@ function get_CommentsCountByProb($probId){
 }
 
 function update_CommentInProb($id,$content){
+	if (!get_magic_quotes_gpc()){
+		$content = addslashes($content);
+	}
 	$query = "UPDATE commentsforproblem AS c SET c.content='$content' , c.lastModify=now() WHERE c.stat=0 and c.id=$id;";
 	mydb_query_without_return($query);
 }
 
 function add_CommentInProb($probId,$userId,$content){
+	if (!get_magic_quotes_gpc()){
+		$content = addslashes($content);
+	}
 	$query = "INSERT INTO commentsforproblem(stat,probID,userID,content,time,lastModify) values(0,$probId,$userId,'$content',now(),now());";
-	mydb_query_without_return($query);
+	return mydb_query_without_return($query);
 }
 
 //End Comment for problem operator
@@ -123,19 +166,25 @@ function get_CommentsCountByWeek($week,$team){
 }
 
 function update_CommentInSpring($id,$content){
+	if (!get_magic_quotes_gpc()){
+		$content = addslashes($content);
+	}
 	$query = "UPDATE commentsforspring AS c SET c.content='$content' , c.lastModify=now() WHERE c.stat=0 and c.id=$id;";
 	mydb_query_without_return($query);
 }
 
 function add_CommentInSpring($week,$team,$userId,$content){
+	if (!get_magic_quotes_gpc()){
+		$content = addslashes($content);
+	}
 	$query = "INSERT INTO commentsforspring(stat,userID,content,week,time,team,lastModify) values(0,$userId,'$content',$week,now(),$team,now());";
-	mydb_query_without_return($query);
+	return mydb_query_without_return($query);
 }
 //End Comment for spring operator
 
 //Rank
 function getRandOnWeek($week,$team){
-	$query = "SELECT s.userID,s.probID,u.name,u.nickname,u.photoPath,count(distinct s.probID) 'count' FROM score AS s,user AS u where s.stat=0 and s.userID=u.id and u.team=$team and s.ac=1 AND s.probID IN (SELECT id FROM problems AS p WHERE p.stat=0 AND p.week=$week) group by s.userID order by count(distinct s.probID) desc;";
+	$query = "SELECT s.userID,s.probID,u.name,u.nickname,u.photoPath,count(distinct s.probID) 'count' FROM score AS s,user AS u where s.stat=0 and s.userID=u.id and u.team=$team and s.ac=1 AND s.probID IN (SELECT id FROM problems AS p WHERE p.stat=0 AND p.week=$week AND p.level=$team) group by s.userID order by count(distinct s.probID) desc;";
 	return mydb_query_return_double_array($query);
 }
 //End Rank
