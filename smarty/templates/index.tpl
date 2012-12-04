@@ -39,6 +39,9 @@
 			function getWeek(){
 			return $("#secret_week").html();
 			}
+			function getCurrentWeek(){
+			return $("#secret_current_week").html();
+			}
 			function getGroup(){
 			return $("#secret_group").html();
 			}
@@ -108,7 +111,7 @@
 							return false;
 						$.each(data,function(i,d){
 							{*var insert='<dl class="dl_comments s_line1 no_border_line">';*}
-							{*insert+='<dt><a href="##"><img alt="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';*}
+							{*insert+='<dt><a href="##"><img title="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';*}
 							{*insert+='<dd><a href="##">'+ d['nickname'] + ':</a>' + d['content'] + ' (' + d['time'] + ')';*}
 							{*insert+='<div class="dl_comment_action"><p><a href="##">Delete</a></p></div></dl>';*}
 
@@ -118,12 +121,12 @@
 							if(i==0){
 						$('#left_rank').children().remove();
 
-								var insert='<span class="week_rank_title">Week Rank:</span><div class="week_best_div"><span id="week_best_span">The Best:</span><fieldset id="week_best"><img alt="' + d['nickname'] + '" src="'+d['photoPath'] + '"></img></fieldset></div><fieldset  class="week_rank"></fieldset>';
+								var insert='<span class="week_rank_title">Week Rank:</span><div class="week_best_div"><span id="week_best_span">The Best:</span><fieldset id="week_best"><img title="' + d['nickname'] + '" src="'+d['photoPath'] + '"></img></fieldset></div><fieldset  class="week_rank"></fieldset>';
 								$('#left_rank').append(insert);
 							}
 							else{
 
-								var insert='<dl class="dl_rank"><dt><span class="week_rank_span">NO.'+ m+':</span>&nbsp;</dt><dd><a href="##"><img alt="'+d['nickname'] +'" src="' + d['photoPath']+'"></img></a></dd></dl>';
+								var insert='<dl class="dl_rank"><dt><span class="week_rank_span">NO.'+ m+':</span>&nbsp;</dt><dd><a href="##"><img title="'+d['nickname'] +'" src="' + d['photoPath']+'"></img></a></dd></dl>';
 								{*$(insert).append($('.week_rank').children('dl:last'));*}
 								$('.week_rank').append(insert);
 							}
@@ -195,6 +198,7 @@
 				var sendData={ userID:userid,week:week,title:pojTitle,pojID:pojNO,content:pojDesription,source:pojSource,level:level,insert:"- -!" };
 				$.post('ProblemOperator.php',sendData,function(data){
 						console.log("publish problem success");
+						console.log(data);
 						$("#diag_no").val("");
 						$("#diag_title").val("");
 						$("#diag_source").val("");
@@ -296,7 +300,7 @@
 
 
 				});
-			$(".ac_score").click(function(){
+			$(".ac_score").live("click",function(){
 					var scoreID = $(this).next().html();
 					 var $link = 'getAC.php?scoreID=' + scoreID +'&type=detail';
 
@@ -315,7 +319,50 @@
 
 			});
 
+			{*pages *}
+			$('.page0').click(function(){
+				var level=getGroup();
+				var week = '1';
+				var url='index.php?level=' + level + '&&week=' + week;
+				window.location = url;
+			});
+			$('.page1').click(function(){
+				var level=getGroup();
+				var week = parseInt(getCurrentWeek()) -1 ;
+				var url='index.php?level=' + level + '&&week=' + week;
+				window.location = url;
+			});
+			$('.page2').click(function(){
+				var level=getGroup();
+				var week = parseInt(getCurrentWeek()) +1 ;
+				var url='index.php?level=' + level + '&&week=' + week;
+				window.location = url;
+			});
+			$('.page3').click(function(){
+				var level=getGroup();
+				var week = getWeek();
+				var url='index.php?level=' + level + '&&week=' + week;
+				window.location = url;
+			});
+
+			function fix_pages(){
+				var cur= getCurrentWeek();
+				var max= getWeek();
+				if(cur==max){
+					$('.page3').hide();
+					$('.page2').hide();
+					}
+				if(max=='1')
+					$('.page').hide();
+				if(cur=='1'){
+					$('.page0').hide();
+					$('.page1').hide();
+					}
+
+			};
+
 			getRank();
+			fix_pages();
 
 		});
 </script>
@@ -372,10 +419,10 @@
 <legend><a href="index.php?level=1" class="" id="group1">Group1</a>/<a href="index.php?level=2" id="group2">Group2</a></legend>
 
 <div class="container">
-	<p><a href="##" class="s_txt0"><span>&lt;&lt;First</span></a></p>
-	<p><a href="##" class="s_txt0"><span>&lt;Pre</span></a></p>
-	<p><a href="##" class="s_txt0"><span>Next&gt;</span></a></p>
-	<p><a href="##" class="s_txt0"><span>Last&gt;&gt;</span></a></p>
+	<p><a href="##" class="s_txt0 pages page0"><span>&lt;&lt;First</span></a></p>
+	<p><a href="##" class="s_txt0 pages page1"><span>&lt;Pre</span></a></p>
+	<p><a href="##" class="s_txt0 pages page2"><span>Next&gt;</span></a></p>
+	<p><a href="##" class="s_txt0 pages page3"><span>Last&gt;&gt;</span></a></p>
 	<a id="add_algo" class="btn-p"><span class="publish">publish!</span></a>
 </div>
 {if $problems != ''}
@@ -499,6 +546,7 @@
 {*hide data here*}
 <div id="secret_data" class="hide_data">
 <div id="secret_week">{$week}</div>
+<div id="secret_current_week">{$current_week}</div>
 <div id="secret_group">{$group}</div>
 <div id="secret_userid">{$userid}</div>
 </div>
