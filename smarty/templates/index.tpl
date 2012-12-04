@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'algo.css'}">
 <link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'content.css'}">
 <link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'jquery-ui.css'}">
+<link rel="stylesheet" type="text/css" href="{$CSS_DIR|cat:'comments.css'}">
 
 
 <script type="text/javascript" src="{$CSS_DIR|cat:'../js/jquery.js'}"></script>
@@ -497,6 +498,41 @@
 {/foreach}
 {/if}
 </fieldset>
+<div class="g_if">
+<div class="g_all_comments">
+	<h2 class="g_title">1 note on sprint</h2>
+	<div class="g_commit_comments">
+		<div class="g_one_comment">
+			<img src="upload/6.jpg" class="g_avatar">
+			<div class="g_comment_content_bgc">
+				<div class="g_comment_inner">
+					<div class="g_comment_content_bubble">
+					<a href="/hacklu" class="g_comment-header-author">hacklu</a><span class="g_comment-time">commented on 2012.11.11 11:11</span>
+					</div>
+					<div class="g_comment_content_text">
+						<div class="g_real_content">
+							<p class="g_content">content</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g_discussion">
+	<img src="upload/6.jpg"  class="g_avatar">
+		<div class="g_discussion-bubble-content">
+			<div class="g_discussion-bubble-inner">
+				<div class="g_write_bucket">
+					<textarea name="comment" tabindex="2" id="g_comment_body" placeholder="Leave a comment" required style="height: 38px; "></textarea>
+				</div>
+					<button type="submit" class="g_classy-primary" tabindex="2">Comment</button>
+			</div>
+	
+		</div>
+</div>
+</div>
 </div>
 
 <!--
