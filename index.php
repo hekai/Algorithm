@@ -45,6 +45,7 @@ $smarty->assign('week',$week);
 $smarty->assign('current_week',$current_week);
 $smarty->assign('group',$group);
 $smarty->assign('userid',$_SESSION['userid']);
+$smarty->assign('photoPath',$_SESSION['photoPath']);
 
 $smarty->display('index.tpl');
 

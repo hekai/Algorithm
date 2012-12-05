@@ -36,6 +36,7 @@
 			var currentProblemDetail;
 			var canPublish=true;
 			var canComment=true;
+			var canCommentSprint=true;
 			var canAC=true;
 			function getWeek(){
 			return $("#secret_week").html();
@@ -97,7 +98,30 @@
 
 						});
 
-			}
+			};
+			function freshCommet_Sprint(){
+					var week = getWeek();
+					var team = getGroup();
+					var type = 'sprint';
+					var sendData = { type:type,week:week,team:team}
+					$.getJSON('getComment.php',sendData,function(data){
+						if(data==null)
+							return false;
+					$('.g_title').html(data.length+' note on sprint');
+					$('.g_commit_comments').children().remove();
+					$.each(data,function(i,d){
+							var insert='<div class="g_one_comment"><img class="g_avatar" src="' + d['photoPath'] + '"><div class="g_comment_content_bgc">';
+							insert+= '<div class="g_comment_inner"><div class="g_comment_content_bubble"><a href="##" class="g_comment-header-author">'+ d['nickname'] + '</a><span class="g_comment-time"> (' + d['time'] +')</span></div>';
+							insert+= '<div class="g_comment_content_text"><div class="g_real_content"><p class="g_content">' + d['content'] + '</p></div></div></div></div></div></div></div>';
+
+
+							$(insert).appendTo($('.g_commit_comments'));
+							});
+
+						});
+
+
+			};
 			function getRank(){
 					var week = getWeek();
 					var team = getGroup();
@@ -169,6 +193,30 @@
 						text.val("");
 
 				}).complete(function(){ canComment = true; });
+
+			});
+
+			$(".gg_button").click(function(){
+				var text=$('#g_comment_body').val();
+				var insert="insert";
+				var userID = getUserID();
+				var week = getCurrentWeek();
+				var team = getGroup();
+
+				if(text.length==0)
+					return false;
+				
+				var sendData = { userID:userID,week:week,team:team,content:text,insert:insert};
+				if(canCommentSprint==false)
+					return false;
+				canCommentSprint = false;
+				$.post('CommentSprintOperator.php',sendData,function(data){
+						console.log("add comment for Sprint success");
+						console.log(data);
+						freshCommet_Sprint();
+						$('#g_comment_body').val("");
+
+				}).complete(function(){ canCommentSprint = true; });
 
 			});
 
@@ -364,6 +412,7 @@
 
 			getRank();
 			fix_pages();
+			freshCommet_Sprint();
 
 		});
 </script>
@@ -431,20 +480,15 @@
 {*<h1>{$test[$problem@index].a}</h1>*}
 <div class="algo">
 	<div class="algo_detail s_line2">
-		{*<div class="algo_face"><img src="{'getPhoto.php?userid='|cat:$problem.userID}" title="{$problem.nickname}"></img></div>*}
 		<div class="algo_face"><img src="{$problem.photoPath}" title="{$problem.nickname}"></img></div>
 		<div class="problem_detail">
 			<span class="hide_data problemID">{$problem.id}</span>
 			<div class="author_info">
-				{*<a class="author_name" href="#">hacklu</a>	*}
 				<a class="author_name" href="##">{$problem.name}</a>	
-				{*<span class="author_nickname" >(hacklu)</sapn>*}
 				<span class="author_nickname" >({$problem.nickname})</sapn>
 			</div>
 			<div class="problem_text">
-				{*<a class="problem_link" href="##">poj1000</a>*}
 				<a class="problem_link" href="##">poj{$problem.pojProblemID}</a>
-				{*<span>this is a beginner's problem. Be happy with it</span>*}
 				<span>&nbsp;&nbsp; {$problem.title}</span>
 			</div>
 			<div class="ac_info">
@@ -458,14 +502,11 @@
 				<div class="problem_func">
 					<a class="btn_a ac_button" href="##">AC</a>
 					<i class="s_txt3">|</i>
-					{*<a href="#">Comments(0)</a>*}
 					<a href="##" class="click_comments">Comments({$problem.commentCount})</a>
 				</div>
 				<div class="problem_from">
-					{*<a class="problem_time s_txt0">2012/11/28 10:40:00</a>*}
 					<a class="problem_time s_txt0">{$problem.time}</a>
 					<em class="s_txt2">from</em>
-					{*<a class="s_link2 s_txt0" href="#">ACM2006</a>*}
 					<a class="s_link2 s_txt0" href="##">{$problem.source}</a>
 				</div>
 			</div>
@@ -479,14 +520,6 @@
 					<!-- comments -->
 					<div class="comments_lists">
 						<dl class="dl_comments s_line1 no_border_line">
-							{*<dt><a href="#"><img alt="hacklu" src="/Algorithm/upload/small.png"></img></a></dt>*}
-							{*<dt><a href="#"><img alt="hacklu" src="/Algorithm/upload/small.png"></img></a></dt>*}
-							{*<dd><a href="#">hacklu:</a>*}
-							{*2pang is foolish!!(1 hour ago)*}
-							{*<div class="dl_comment_action">*}
-								{*<p><a href="#">Delete</a></p></div>*}
-							{*</dd>*}
-							{*<dd class="clear"></dd>*}
 						 </dl>
 					</div>
 				</div>
@@ -500,34 +533,19 @@
 </fieldset>
 <div class="g_if">
 <div class="g_all_comments">
-	<h2 class="g_title">1 note on sprint</h2>
+	<h2 class="g_title">0 note on sprint</h2>
 	<div class="g_commit_comments">
-		<div class="g_one_comment">
-			<img src="upload/6.jpg" class="g_avatar">
-			<div class="g_comment_content_bgc">
-				<div class="g_comment_inner">
-					<div class="g_comment_content_bubble">
-					<a href="/hacklu" class="g_comment-header-author">hacklu</a><span class="g_comment-time">commented on 2012.11.11 11:11</span>
-					</div>
-					<div class="g_comment_content_text">
-						<div class="g_real_content">
-							<p class="g_content">content</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 </div>
 
 <div class="g_discussion">
-	<img src="upload/6.jpg"  class="g_avatar">
+	<img src="{$photoPath}"  class="g_avatar">
 		<div class="g_discussion-bubble-content">
 			<div class="g_discussion-bubble-inner">
 				<div class="g_write_bucket">
-					<textarea name="comment" tabindex="2" id="g_comment_body" placeholder="Leave a comment" required style="height: 38px; "></textarea>
+					<textarea name="comment" tabindex="2" id="g_comment_body"  style="height: 38px; "></textarea>
 				</div>
-					<button type="submit" class="g_classy-primary" tabindex="2">Comment</button>
+					<p class="g_classy-primary " tabindex="2"><a class="gg_button">Comment</a></p>
 			</div>
 	
 		</div>
@@ -535,12 +553,6 @@
 </div>
 </div>
 
-<!--
-<div id="bottom_comment">
-	there is no comments now!<br/>
-	<textarea rows="10" cols="30"> add comments here...  </textarea>
-</div>
--->
 <div class="fixbug"></div> {* this is so important!. fix the div height auto *}
 </div>
 
@@ -585,6 +597,7 @@
 <div id="secret_current_week">{$current_week}</div>
 <div id="secret_group">{$group}</div>
 <div id="secret_userid">{$userid}</div>
+<div id="secret_photoPath">{$photoPath}</div>
 </div>
 </body>
 </html>

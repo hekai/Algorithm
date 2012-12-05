@@ -156,7 +156,7 @@ function add_CommentInProb($probId,$userId,$content){
 
 //Comment for spring operator
 function get_CommentsByWeek($week,$team) {
-	$query = "SELECT c.id,c.userID,c.content,c.time FROM commentsforspring AS c where c.stat=0 and c.week=$week and c.team=$team order by c.time;";
+	$query = "SELECT c.id,c.userID,c.content,c.time, u.nickname, u.photoPath FROM commentsforspring AS c,user AS u where c.stat=0 and c.week=$week and c.team=$team AND c.userID=u.id AND u.stat=0  order by c.time;";
 	return mydb_query_return_double_array($query);
 }
 

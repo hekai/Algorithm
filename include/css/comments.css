@@ -4,7 +4,7 @@
 	left:3%;
 	top:5px;
 	width:80%;
-	min-height:150px;
+	/*min-height:150px;*/
 	height:auto !important;
 }
 .g_title
@@ -19,8 +19,9 @@
 }
 .g_one_comment
 {
-	position:relative;
-	top:2px;
+	/*position:relative;*/
+	/*top:2px;*/
+	float:left;
 	width:950%;
 }
 .g_avatar
@@ -57,7 +58,7 @@
 	background-image: -webkit-linear-gradient(#F8F8F8, #E1E1E1);
 	background-image: linear-gradient(#F8F8F8, #E1E1E1);
 	background-repeat: repeat-x;
-	font-size: 12px;
+	font-size: 16px;
 }
 .g_comment-header-author
 {
@@ -83,12 +84,12 @@
 {
 	text-shadow: none;
 	color: #333;
-	font-size: 12px;
+	font-size: 16px;
 }
 .g_real_content
 {
 	padding: 10px;
-	font-size: 13px;
+	font-size: 16px;
 	overflow: auto;
 	width: 100%;	
 	box-sizing: border-box;
@@ -111,8 +112,8 @@
 .g_discussion
 {
 	position:relative;
-	left:3%;
-	top:5px;
+	left:19px;
+	/*top:5px;*/
 	width:80%;
 	padding: 0;
 	border: 0;
@@ -188,7 +189,7 @@ color: black;
 cursor: auto;
 display: block;
 font-family: Helvetica, arial, freesans, clean, sans-serif;
-font-size: 13px;
+font-size: 16px;
 font-style: normal;
 font-variant: normal;
 font-weight: normal;
@@ -252,7 +253,7 @@ color: white;
 cursor: pointer;
 display: inline-block;
 font-family: Helvetica, arial, freesans, clean, sans-serif;
-font-size: 12px;
+font-size: 16px;
 font-style: normal;
 font-variant: normal;
 font-weight: bold;
@@ -269,7 +270,7 @@ outline-width: 0px;
 padding-bottom: 0px;
 padding-left: 15px;
 padding-right: 15px;
-padding-top: 0px;
+padding-top: 8px;
 position: relative;
 right:12px;
 text-align: center;
@@ -278,4 +279,13 @@ text-shadow: rgba(0, 0, 0, 0.398438) 0px -1px 0px;
 text-transform: none;
 width: 90px;
 word-spacing: 0px;
+}
+
+.gg_button {
+	color:white;
+	text-decoration:none;
+}
+.gg_button:hover{
+	text-decoration:none;
+	color:black;
 }

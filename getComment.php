@@ -10,7 +10,7 @@ if($type!=null && $type=='prob'){
 	if($commentsprob!=null){
 		echo json_encode($commentsprob);
 	}
-}else if($type!=null && $type=='spring'){
+}else if($type!=null && $type=='sprint'){
 	$week = $_GET['week'];
 	$team = $_GET['team'];
 	$commentspring = get_CommentsByWeek($week, $team);
