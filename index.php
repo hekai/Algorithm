@@ -3,7 +3,7 @@ header("content-type:text/html; charset=utf-8");
 include 'permission.php';
 require_once('include/smarty_setup.php');
 require_once 'include/db_operator_class.php';
-
+date_default_timezone_set('PRC');
 $smarty = new Algo();
 
 $week=$_SESSION['week'];
