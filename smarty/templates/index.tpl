@@ -68,7 +68,7 @@
 
 						$.each(data,function(i,d){
 							var insert='<dl class="dl_comments s_line1 no_border_line">';
-							insert+='<dt><a href="##"><img alt="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';
+							insert+='<dt><a href="##"><img onclick="getACRate(' +d['userID'] + ')" alt="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';
 							insert+='<dd><a href="##">'+ d['nickname'] + ':</a>' + d['content'] + ' (' + d['time'] + ')';
 							insert+='<div class="dl_comment_action"><p><a href="##">Delete</a></p></div></dl>';
 
@@ -110,7 +110,7 @@
 					$('.g_title').html(data.length+' note on sprint');
 					$('.g_commit_comments').children().remove();
 					$.each(data,function(i,d){
-							var insert='<div class="g_one_comment"><img class="g_avatar" src="' + d['photoPath'] + '"><div class="g_comment_content_bgc">';
+							var insert='<div class="g_one_comment"><img  onclick="getACRate(' +d['userID'] + ')" class="g_avatar" src="' + d['photoPath'] + '"><div class="g_comment_content_bgc">';
 							insert+= '<div class="g_comment_inner"><div class="g_comment_content_bubble"><a href="##" class="g_comment-header-author">'+ d['nickname'] + '</a><span class="g_comment-time"> (' + d['time'] +')</span></div>';
 							insert+= '<div class="g_comment_content_text"><div class="g_real_content"><p class="g_content">' + d['content'] + '</p></div></div></div></div></div></div></div>';
 
@@ -126,7 +126,8 @@
 					var week = getWeek();
 					var team = getGroup();
 			
-					var $link = 'getRank.php?week=' + week + '&&team=' + team;
+					var $link = 'getRank.php?type=all&week=' + week + '&&team=' + team;
+					var $link_worst = 'getRank.php?type=worst&week=' + week + '&&team=' + team;
 
 					 $.getJSON($link,function(data){
 
@@ -135,31 +136,76 @@
 						if(data==null)
 							return false;
 						$.each(data,function(i,d){
-							{*var insert='<dl class="dl_comments s_line1 no_border_line">';*}
-							{*insert+='<dt><a href="##"><img title="'+d['nickname']+'" src="'+d['photoPath']+'"></img></a></dt>';*}
-							{*insert+='<dd><a href="##">'+ d['nickname'] + ':</a>' + d['content'] + ' (' + d['time'] + ')';*}
-							{*insert+='<div class="dl_comment_action"><p><a href="##">Delete</a></p></div></dl>';*}
-
-							{*$(insert).appendTo(comments_lists.children('dl:last'));*}
 
 							var m=i+1;
 							if(i==0){
 						$('#left_rank').children().remove();
 
-								var insert='<span class="week_rank_title">Week Rank:</span><div class="week_best_div"><span id="week_best_span">The Best:</span><fieldset id="week_best"><img title="' + d['nickname'] + '" src="'+d['photoPath'] + '"></img></fieldset></div><fieldset  class="week_rank"></fieldset>';
+								var insert='<span class="week_rank_title">Week Rank:</span><div class="week_best_div"><span id="week_best_span">The Best:</span><fieldset id="week_best"><img  onclick="getACRate(' +d['userID'] + ')" title="' + d['nickname'] + '" src="'+d['photoPath'] + '"></img></fieldset></div><fieldset  class="week_rank"></fieldset>';
 								$('#left_rank').append(insert);
 							}
 							else{
 
-								var insert='<dl class="dl_rank"><dt><span class="week_rank_span">NO.'+ m+':</span>&nbsp;</dt><dd><a href="##"><img title="'+d['nickname'] +'" src="' + d['photoPath']+'"></img></a></dd></dl>';
+								var insert='<dl class="dl_rank"><dt><span class="week_rank_span">NO.'+ m+':</span>&nbsp;</dt><dd><a href="##"><img  onclick="getACRate(' +d['userID'] + ')" title="'+d['nickname'] +'" src="' + d['photoPath']+'"></img></a></dd></dl>';
 								{*$(insert).append($('.week_rank').children('dl:last'));*}
 								$('.week_rank').append(insert);
 							}
 
 					 });
+				 }).complete(function() {
+				$.getJSON($link_worst,function(data){
+						if(data==null)
+							return false;
+						$.each(data,function(i,d){
+	{*<div id="left_rank" class="left_tab">*}
+		{*<span class="week_rank_title">Week Rank:</span>*}
+		{*<div class="week_best_div">*}
+		{*<span id="week_best_span">The Best:</span>*}
+		{*<fieldset id="week_best">*}
+			{*<img alt="hacklu" src="photo.png"></img>*}
+		{*</fieldset>*}
+		{*</div>*}
+		{*<fieldset class="week_rank">*}
+		{*<dl class="dl_rank">*}
+			{*<dt><span class="week_rank_span">NO.2:</span>&nbsp;</dt>*}
+			{*<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>*}
+		{*</dl>*}
+		{*<dl class="dl_rank">*}
+			{*<dt><span class="week_rank_span">NO.3:</span>&nbsp;</dt>*}
+			{*<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>*}
+		{*</dl>*}
+		{*<dl class="dl_rank">*}
+			{*<dt><span class="week_rank_span">NO.4:</span>&nbsp;</dt>*}
+			{*<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>*}
+		{*</dl>*}
+		{*<dl class="dl_rank">*}
+			{*<dt><span class="week_rank_span">NO.5:</span>&nbsp;</dt>*}
+			{*<dd><a href="#"><img alt="hacklu" src="photo.png"></img></a></dd>*}
+		{*</dl>*}
 
+		{*</fieldset>*}
+		{*<div class="week_best_div">*}
+			{*<span id="week_worst_span">The Worst:</span>*}
+			{*<fieldset id="week_worst" class="week_rank">*}
+				{*<img alt="hacklu" src="photo.png"></img>*}
+			{*</fieldset>*}
+		{*</div>*}
+	{*</div>*}
+							if(i==0){
+								var insert = '<div class="week_best_div"><span id="week_worst_span">The Worst:</span><fieldset id="week_worst" class="week_rank"><img  onclick="getACRate(' +d['id'] + ')" title="' + d['nickname'] + '" src="' + d['photoPath'] + '"></img></fieldset>';
+								$('#left_rank').append(insert);
+							}
+							else{
+								var insert = '<img  onclick="getACRate(' +d['id'] + ')" title="' + d['nickname'] + '" src="' + d['photoPath'] + '"></img>';
+								$('#week_worst').append(insert);
+							}
+
+					 });
+
+				
+				})
 				});
-			}
+			};
 
 			$(".click_comments").click(function(){
 				
@@ -372,27 +418,52 @@
 			$('.page0').click(function(){
 				var level=getGroup();
 				var week = '1';
-				var url='index.php?level=' + level + '&&week=' + week;
+				var url='index.php?level=' + level + '&&current_week=' + week;
 				window.location = url;
 			});
 			$('.page1').click(function(){
 				var level=getGroup();
 				var week = parseInt(getCurrentWeek()) -1 ;
-				var url='index.php?level=' + level + '&&week=' + week;
+				var url='index.php?level=' + level + '&&current_week=' + week;
 				window.location = url;
 			});
 			$('.page2').click(function(){
 				var level=getGroup();
 				var week = parseInt(getCurrentWeek()) +1 ;
-				var url='index.php?level=' + level + '&&week=' + week;
+				var url='index.php?level=' + level + '&&current_week=' + week;
 				window.location = url;
 			});
 			$('.page3').click(function(){
 				var level=getGroup();
 				var week = getWeek();
-				var url='index.php?level=' + level + '&&week=' + week;
+				var url='index.php?level=' + level + '&&current_week=' + week;
 				window.location = url;
 			});
+
+			$(".author_name").click(function(){
+				var usrId = $(this).parent().children('div:first').html();
+				var link = 'getACRate?userID=' + usrId;
+				var linkUser = 'getUser.php?userID=' + usrId;
+				var username;
+				$.getJSON(linkUser,function(data){
+					
+					username = data['nickname'];
+
+				}).complete(function(){
+				$.getJSON(link,function(d){
+					var acRate = parseInt(d['teamAC'])/parseInt(d['teamPcount']);
+					var show = '<div><p>AC rate=' + acRate +'(' +  d['teamAC'] +'/' + d['teamPcount'] + ')</p>';
+
+					var acedRate = parseInt(d['ACed'])/parseInt(d['userPCount']);
+					show += '<p>ACed rate=' + acedRate +'(' +  d['ACed'] +'/' + d['userPCount'] + ')</p>';
+
+					var dialog = $(show).dialog({ title:username+ ' \'s info', modal:false,focus:true});
+				});
+
+				});
+
+			});
+
 
 			function fix_pages(){
 				var cur= getCurrentWeek();
@@ -415,6 +486,29 @@
 			freshCommet_Sprint();
 
 		});
+			function getACRate(usrId){
+				var link = 'getACRate?userID=' + usrId;
+				var linkUser = 'getUser.php?userID=' + usrId;
+				var username;
+				$.getJSON(linkUser,function(data){
+					
+					username = data['nickname'];
+
+				}).complete(function(){
+				$.getJSON(link,function(d){
+					var acRate = parseInt(d['teamAC'])/parseInt(d['teamPcount']);
+					var show = '<div><p>AC rate=' + acRate +'(' +  d['teamAC'] +'/' + d['teamPcount'] + ')</p>';
+
+					var acedRate = parseInt(d['ACed'])/parseInt(d['userPCount']);
+					show += '<p>ACed rate=' + acedRate +'(' +  d['ACed'] +'/' + d['userPCount'] + ')</p>';
+
+					var dialog = $(show).dialog({ title:username+ ' \'s info', modal:false,focus:true});
+				});
+
+				});
+
+
+			};
 </script>
 
 </head>
@@ -480,10 +574,11 @@
 {*<h1>{$test[$problem@index].a}</h1>*}
 <div class="algo">
 	<div class="algo_detail s_line2">
-		<div class="algo_face"><img src="{$problem.photoPath}" title="{$problem.nickname}"></img></div>
+		<div class="algo_face"><img src="{$problem.photoPath}" title="{$problem.nickname}" onclick="getACRate({$problem.userID})"></img></div>
 		<div class="problem_detail">
 			<span class="hide_data problemID">{$problem.id}</span>
 			<div class="author_info">
+				<div class="hide_data">{$problem.userID}</div>
 				<a class="author_name" href="##">{$problem.name}</a>	
 				<span class="author_nickname" >({$problem.nickname})</sapn>
 			</div>
