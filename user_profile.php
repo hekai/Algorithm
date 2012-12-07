@@ -21,12 +21,21 @@
 			$pojname=$_SESSION['pojname'];
 			$team=$_SESSION['team'];
 		}else{
-			$uid=$_GET['uid'];
+			if(isset($_GET['uid'))
+				$uid=$_GET['uid'];
+			else
+				$uid='';
 			$photoPath='';
-			$nickname=$_GET['name'];
-			$name=$_GET['name'];
+			if(isset($_GET['name'))
+				$nickname=$_GET['name'];
+			else
+				$nickname='';
+			$name=$nickname;
 			$sex='';
-			$email='';
+			if(isset($_GET['email'))
+				$email=$_GET['email'];
+			else
+				$email='';
 			$pojname='';
 			$team='';
 		}

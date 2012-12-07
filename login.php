@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:wb="http://open.weibo.com/wb">
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="content-type">
@@ -33,6 +34,11 @@ WB2.anyWhere(function(W){
   <div class="main">
     <p class = "first">Welcome To Our</p>
     <p class = "first">Super Algorithm Team</p>
+    <div id="gmail_connect_btn">
+    	<a href="googleredirect.php?login"><img src="./include/images/google.png"></a>
+    </div>
+    <br/>
+    <br/>
     <div id="wb_connect_btn"></div>
   </div>
 </div>
