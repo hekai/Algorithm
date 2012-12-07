@@ -86,6 +86,11 @@ function get_UserByUid($uid) {
 }
 
 function add_User($uid,$name,$sex,$nickname,$pojusername,$email,$team){
+	$name = htmlspecialchars($name);
+	$nickname = htmlspecialchars($nickname);
+	$pojusername = htmlspecialchars($pojusername);
+	$email = htmlspecialchars($email);
+	
 	if (!get_magic_quotes_gpc()){
 		$name = addslashes($name);
 		$nickname = addslashes($nickname);
@@ -97,6 +102,11 @@ function add_User($uid,$name,$sex,$nickname,$pojusername,$email,$team){
 }
 
 function update_User($id,$name,$sex,$nickname,$pojusername,$email,$team){
+	$name = htmlspecialchars($name);
+	$nickname = htmlspecialchars($nickname);
+	$pojusername = htmlspecialchars($pojusername);
+	$email = htmlspecialchars($email);
+	
 	if (!get_magic_quotes_gpc()){
 		$name = addslashes($name);
 		$nickname = addslashes($nickname);
@@ -126,6 +136,10 @@ function get_ProblemSimpleById($id){
 }
 
 function update_ProblemContent($id,$pojID,$title,$content,$source){
+	$title = htmlspecialchars($title);
+	$content = htmlspecialchars($content);
+	$source = htmlspecialchars($source);
+	
 	if (!get_magic_quotes_gpc()){
 		$title = addslashes($title);
 		$content = addslashes($content);
@@ -136,6 +150,10 @@ function update_ProblemContent($id,$pojID,$title,$content,$source){
 }
 
 function add_Problem($userId,$pojID,$title,$content,$week,$source,$level){
+	$title = htmlspecialchars($title);
+	$content = htmlspecialchars($content);
+	$source = htmlspecialchars($source);
+	
 	if (!get_magic_quotes_gpc()){
 		$title = addslashes($title);
 		$content = addslashes($content);
@@ -163,6 +181,7 @@ function get_ScoreContent($id){
 }
 
 function update_Score($id,$code,$ac,$language){
+	$code = htmlspecialchars($code);
 	if (!get_magic_quotes_gpc()){
 		$code = addslashes($code);
 	}
@@ -171,6 +190,7 @@ function update_Score($id,$code,$ac,$language){
 }
 
 function add_Score($probId,$userId,$code,$ac,$language){
+	$code = htmlspecialchars($code);
 	if (!get_magic_quotes_gpc()){
 		$code = addslashes($code);
 	}
@@ -197,6 +217,7 @@ function get_CommentsCountByProb($probId){
 }
 
 function update_CommentInProb($id,$content){
+	$content = htmlspecialchars($content);
 	if (!get_magic_quotes_gpc()){
 		$content = addslashes($content);
 	}
@@ -205,6 +226,7 @@ function update_CommentInProb($id,$content){
 }
 
 function add_CommentInProb($probId,$userId,$content){
+	$content = htmlspecialchars($content);
 	if (!get_magic_quotes_gpc()){
 		$content = addslashes($content);
 	}
@@ -226,6 +248,7 @@ function get_CommentsCountByWeek($week,$team){
 }
 
 function update_CommentInSpring($id,$content){
+	$content = htmlspecialchars($content);
 	if (!get_magic_quotes_gpc()){
 		$content = addslashes($content);
 	}
@@ -234,6 +257,7 @@ function update_CommentInSpring($id,$content){
 }
 
 function add_CommentInSpring($week,$team,$userId,$content){
+	$content = htmlspecialchars($content);
 	if (!get_magic_quotes_gpc()){
 		$content = addslashes($content);
 	}
