@@ -1,13 +1,13 @@
 <?php
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'hacklu_db2');
+define('DB_NAME', 'Algorithm');
 
 /** MySQL database username */
-define('DB_USER', 'hacklu');
+define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', '1');
+define('DB_PASSWORD', 'root');
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
 
@@ -21,8 +21,11 @@ function mydb_query_without_return($query){
 		die("Could not select the database:<br/>".mysql_error());
 	}
 	mysql_query("SET NAMES 'utf8'");
+	mysql_query("SET time_zone = '+8:00'");
 	mysql_query($query);
+	$insert_id = mysql_insert_id();
 	mysql_close($connection);
+	return $insert_id;
 }
 
 function mydb_query_return_double_array($query){
@@ -35,6 +38,7 @@ function mydb_query_return_double_array($query){
 		die("Could not select the database:<br/>".mysql_error());
 	}
 	mysql_query("SET NAMES 'utf8'");
+	mysql_query("SET time_zone = '+8:00'");
 	$result = mysql_query($query);
 	if(!$result){
 		die("Could not query the database:<br/>".mysql_error());
@@ -57,6 +61,7 @@ function mydb_query_return_first_item($query){
 		die("Could not select the database:<br/>".mysql_error());
 	}
 	mysql_query("SET NAMES 'utf8'");
+	mysql_query("SET time_zone = '+8:00'");
 	$result = mysql_query($query);
 	if(!$result){
 		die("Could not query the database:<br/>".mysql_error());
