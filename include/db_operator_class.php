@@ -1,6 +1,66 @@
 <?php
 require_once ('config.php');
 
+function mydb_query_without_return($query){
+	$connection =  mysql_connect(DB_HOST,DB_USER,DB_PASSWORD);
+	if(!$connection){
+		die("Could not connect to the database:<br/>".mysql_error());
+	}
+	$db_select = mysql_select_db(DB_NAME);
+	if(!$db_select){
+		die("Could not select the database:<br/>".mysql_error());
+	}
+	mysql_query("SET NAMES 'utf8'");
+	mysql_query("SET time_zone = '+8:00'");
+	mysql_query($query);
+	$insert_id = mysql_insert_id();
+	mysql_close($connection);
+	return $insert_id;
+}
+
+function mydb_query_return_double_array($query){
+	$connection =  mysql_connect(DB_HOST,DB_USER,DB_PASSWORD);
+	if(!$connection){
+		die("Could not connect to the database:<br/>".mysql_error());
+	}
+	$db_select = mysql_select_db(DB_NAME);
+	if(!$db_select){
+		die("Could not select the database:<br/>".mysql_error());
+	}
+	mysql_query("SET NAMES 'utf8'");
+	mysql_query("SET time_zone = '+8:00'");
+	$result = mysql_query($query);
+	if(!$result){
+		die("Could not query the database:<br/>".mysql_error());
+	}
+	$result_array=array();
+	while($tmp = mysql_fetch_array($result,MYSQL_ASSOC)){
+		$result_array[] = $tmp;
+	}
+	mysql_close($connection);
+	return $result_array;
+}
+
+function mydb_query_return_first_item($query){
+	$connection =  mysql_connect(DB_HOST,DB_USER,DB_PASSWORD);
+	if(!$connection){
+		die("Could not connect to the database:<br/>".mysql_error());
+	}
+	$db_select = mysql_select_db(DB_NAME);
+	if(!$db_select){
+		die("Could not select the database:<br/>".mysql_error());
+	}
+	mysql_query("SET NAMES 'utf8'");
+	mysql_query("SET time_zone = '+8:00'");
+	$result = mysql_query($query);
+	if(!$result){
+		die("Could not query the database:<br/>".mysql_error());
+	}
+	$result_array = mysql_fetch_array($result,MYSQL_ASSOC);
+	mysql_close($connection);
+	return $result_array;
+}
+
 //User Operator
 function get_Users() {
 	$query = "SELECT * FROM user AS u WHERE u.stat=0;";
@@ -189,7 +249,7 @@ function getRandOnWeek($week,$team){
 }
 
 function getWorstOnWeek($week,$team){
-	$query = "select u.id,u.name,u.nickname,u.photoPath,t.count from user as u left join (select s.userID,count(distinct s.probID) as count from score as s,problems as p where s.probID=p.id and s.AC=1 and p.week=1 and p.level=1 group by s.userID) t on t.userID=u.id order by t.count limit 1";
+	$query = "select u.id,u.name,u.nickname,u.photoPath,t.count from user as u left join (select s.userID,count(distinct s.probID) as count from score as s,problems as p where s.probID=p.id and s.AC=1 and p.week=$week and p.level=$team and s.stat=0 and p.stat=0 group by s.userID) t on t.userID=u.id and u.stat=0 and t.count=0 order by t.count limit 1";
 	return mydb_query_return_first_item($query);
 }
 //End Rank
