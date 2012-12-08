@@ -99,7 +99,7 @@
 
 			};
 			function freshCommet_Sprint(){
-					var week = getWeek();
+					var week = getCurrentWeek();
 					var team = getGroup();
 					var type = 'sprint';
 					var sendData = { type:type,week:week,team:team}
@@ -122,7 +122,7 @@
 
 			};
 			function getRank(){
-					var week = getWeek();
+					var week = getCurrentWeek();
 					var team = getGroup();
 			
 					var $link = 'getRank.php?type=all&week=' + week + '&&team=' + team;
@@ -279,7 +279,7 @@
 				var pojSource=$("#diag_source").val();
 				var pojDesription=$("#diag_description").val();
 
-				var week= getWeek();
+				var week= getCurrentWeek();
 				var userid= getUserID();
 				var level = getGroup();
 				if(pojNO.length==0 || pojTitle.length==0){
