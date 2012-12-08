@@ -273,7 +273,7 @@ function getRandOnWeek($week,$team){
 }
 
 function getWorstOnWeek($week,$team){
-	$query = "SELECT u.id,u.name,u.nickname,u.photoPath FROM user as u where u.team=$team and u.id not in (select distinct s.userID from score as s ,problems as p where s.stat=0 and s.AC=1 and p.stat=0 and p.id=s.probID and p.week=$week);";
+	$query = "SELECT u.id,u.name,u.nickname,u.photoPath FROM user as u where u.team=$team and u.id not in (select distinct s.userID from score as s ,problems as p where s.stat=0 and s.AC=1 and p.stat=0 and p.level=$team and p.id=s.probID and p.week=$week);";
 	return mydb_query_return_double_array($query);
 }
 
