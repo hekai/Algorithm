@@ -38,12 +38,12 @@ try {
 				$_SESSION['photoPath']=$user_result['photoPath'];
 				header("Location: index.php");
 				exit;
+			}else{
+				header('Location: user_profile.php?&&email='.$email.'&&type=insert');
+				exit;
 			}
 		}
-		else
-		{
-		header('Location: user_profile.php?&&email='.$email.'&&type=insert');
-		}
+		
 	}
 } catch(ErrorException $e) {
 	echo $e->getMessage();
