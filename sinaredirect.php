@@ -2,13 +2,6 @@
 session_start();
 require_once 'include/db_operator_class.php';
 
-function getWeek(){
-	$dateStart = strtotime('2012-12-2');
-	$dateNow = strtotime(date('Y-m-j'));
-	$betweenDate = floor(($dateNow - $dateStart)/604800)+1;
-	return $betweenDate;
-}
-
 if(isset($_GET['uid'])) {
 	$uid = $_GET['uid'];
 	$user_result = get_UserByUid($uid);

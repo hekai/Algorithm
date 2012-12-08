@@ -280,14 +280,21 @@ function getWorstOnWeek($week,$team){
 function getACRate($userID){
 	$query = "select 
 (select count(distinct p.pojProblemID) from problems as p where p.stat=0 ) as allPcount,
-(select count(distinct p.pojProblemID) from problems as p, score as s ,user as u where p.stat=0 and s.stat=0 and u.stat=0 and p.id=s.probID and s.AC=1) as allAC,
+(select count(distinct p.pojProblemID) from problems as p, score as s ,user as u where p.stat=0 and s.stat=0 and u.stat=0 and p.id=s.probID and s.AC=1 and s.userID=$userID) as allAC,
 (select count(distinct p.pojProblemID) from problems as p where p.stat=0 and p.level=1) as teamPcount,
-(select count(distinct p.pojProblemID) from problems as p, score as s ,user as u where p.stat=0 and s.stat=0 and u.stat=0 and p.id=s.probID and s.AC=1 and p.level=u.team and u.id=$userID) as teamAC,
+(select count(distinct p.pojProblemID) from problems as p, score as s ,user as u where p.stat=0 and s.stat=0 and u.stat=0 and p.id=s.probID and s.AC=1 and p.level=u.team and s.userID=u.id and u.id=$userID) as teamAC,
 (select count(distinct p.pojProblemID) from problems as p where p.userID=$userID) as userPCount,
 (select count(distinct p.pojProblemID) from problems as p ,score as s,user as u where p.stat=0 and s.stat=0 and u.stat=0 and p.userID=$userID and s.probID=p.id and s.AC=1) as ACed";
 	return mydb_query_return_first_item($query);
 }
 //End Rank
+
+function getWeek(){
+	$dateStart = strtotime('2012-12-2');
+	$dateNow = strtotime(date('Y-m-j'));
+	$betweenDate = floor(($dateNow - $dateStart)/604800)+1;
+	return $betweenDate;
+}
 
 //urlencode
 function my_urlencode_double($array){
