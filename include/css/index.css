@@ -62,4 +62,16 @@ a:hover {
 
 .fixbug {
 	clear:both;
+
 }
+
+.round1 {
+	border-radius:4px;
+}
+.round2 {
+	/*border-radius:6px;*/
+}
+.round3 {
+	border-radius:10px;
+}
+
