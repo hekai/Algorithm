@@ -19,9 +19,12 @@ require_once 'include/db_operator_class.php';
 	
 	$upload=$_POST['upload'];
 	
-	if($uid==null || $name==null|| $nickname==null|| $email==null|| $pojusername==null){
+	if($name==null|| $nickname==null|| $email==null|| $pojusername==null){
 		echo 'something is null!!! check again!!!';
 		exit;
+	}
+	if($uid==null || $uid==''){
+		$uid=1024;//add google user
 	}
 	
 	
@@ -80,7 +83,7 @@ require_once 'include/db_operator_class.php';
 	if($form_data_type == 'image/gif'){
 		$type = '.gif';
 	}
-	if($form_data_type == 'image/gif'){
+	if($form_data_type == 'image/png'){
 		$type = '.png';
 	}
 	$upfilePath = 'upload/';
