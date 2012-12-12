@@ -6,7 +6,8 @@ require_once 'include/db_operator_class.php';
 date_default_timezone_set('PRC');
 $smarty = new Algo();
 
-$week=$_SESSION['week'];
+//$week=$_SESSION['week'];
+$week=getWeek();
 $team=$_SESSION['team'];
 if(isset($_GET['current_week'])){
 	$current_week=$_GET['current_week'];

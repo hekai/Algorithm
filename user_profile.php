@@ -38,6 +38,7 @@
 				$email='';
 			$pojname='';
 			$team='';
+
 		}
 	?>
 	<form method="post" action="upload.php" enctype="multipart/form-data">
@@ -73,8 +74,7 @@
 			</tr>
 			<tr>
 				<td>Email</td>
-				<td><input TYPE="text" name="email" value="<?php echo $email;?>
-					"/></td>
+				<td><input TYPE="text" name="email" value="<?php echo $email;?>"/></td>
 			</tr>
 			<tr>
 				<td>POJ username</td>
