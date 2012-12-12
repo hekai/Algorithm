@@ -27,11 +27,23 @@ require_once 'include/db_operator_class.php';
 		$uid=1024;//add google user
 	}
 	
+	if($upload=='update'){
+		$userID = $_SESSION['userid'];
+	}else if($upload=='insert'){
+		if($uid!=1024){
+			$tmpResult=get_UserByUid($uid);
+		}else{
+			$tmpResult=get_UserByEmail($email);
+		}
+		if($tmpResult!=null && count($tmpResult)>0){
+			echo 'Exist user. Please login directly.';
+			exit;
+		}
+	}
 	
 	if($upload=='insert')
 		$userID = add_User($uid, $name, $sex, $nickname, $pojusername, $email, $group);
 	else if($upload=='update'){
-		$userID = $_SESSION['userid'];
 		update_User($userID, $name, $sex, $nickname, $pojusername, $email, $group);
 	}
 		
