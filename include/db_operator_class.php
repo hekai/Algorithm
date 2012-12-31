@@ -273,8 +273,8 @@ function getRandOnWeek($week,$team){
 }
 
 function getWorstOnWeek($week,$team){
-	$query = "select u.id,u.name,u.nickname,u.photoPath,t.count from user as u left join (select s.userID,count(distinct s.probID) as count from score as s,problems as p where s.probID=p.id and s.AC=1 and p.week=$week and p.level=$team and s.stat=0 and p.stat=0 group by s.userID) t on t.userID=u.id and u.stat=0 and t.count=0 order by t.count limit 1";
-	return mydb_query_return_first_item($query);
+	$query = "SELECT u.id,u.name,u.nickname,u.photoPath FROM user as u where u.team=$team and u.id not in (select distinct s.userID from score as s ,problems as p where s.stat=0 and s.AC=1 and p.stat=0 and p.id=s.probID and p.week=$week);";
+	return mydb_query_return_double_item($query);
 }
 //End Rank
 
