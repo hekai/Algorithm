@@ -5,6 +5,8 @@ require_once ('include/db_operator_class.php');
 
 if(isset($_GET['userID'])){
 	$userID=$_GET['userID'];
-	
+	$result = getACRate($userID);
+	if($result!=null)
+		echo json_encode($result);
 }
 ?>

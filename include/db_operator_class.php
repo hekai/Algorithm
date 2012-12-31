@@ -274,7 +274,18 @@ function getRandOnWeek($week,$team){
 
 function getWorstOnWeek($week,$team){
 	$query = "SELECT u.id,u.name,u.nickname,u.photoPath FROM user as u where u.team=$team and u.id not in (select distinct s.userID from score as s ,problems as p where s.stat=0 and s.AC=1 and p.stat=0 and p.id=s.probID and p.week=$week);";
-	return mydb_query_return_double_item($query);
+	return mydb_query_return_double_array($query);
+}
+
+function getACRate($userID){
+	$query = "select 
+(select count(distinct p.pojProblemID) from problems as p where p.stat=0 ) as allPcount,
+(select count(distinct p.pojProblemID) from problems as p, score as s ,user as u where p.stat=0 and s.stat=0 and u.stat=0 and p.id=s.probID and s.AC=1) as allAC,
+(select count(distinct p.pojProblemID) from problems as p where p.stat=0 and p.level=1) as teamPcount,
+(select count(distinct p.pojProblemID) from problems as p, score as s ,user as u where p.stat=0 and s.stat=0 and u.stat=0 and p.id=s.probID and s.AC=1 and p.level=u.team and u.id=$userID) as teamAC,
+(select count(distinct p.pojProblemID) from problems as p where p.userID=$userID) as userPCount,
+(select count(distinct p.pojProblemID) from problems as p ,score as s,user as u where p.stat=0 and s.stat=0 and u.stat=0 and p.userID=$userID and s.probID=p.id and s.AC=1) as ACed";
+	return mydb_query_return_first_item($query);
 }
 //End Rank
 
