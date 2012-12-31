@@ -171,7 +171,7 @@ function get_ScoresByWeek($week){
 }
 
 function get_ScoresByProb($probId) {
-	$query = "SELECT s.id,s.userID,u.name,u.nickname,u.photoPath,s.AC,s.ACtime,s.lastModify FROM score AS s, user AS u where s.stat=0 and s.probID=$probId AND u.stat = 0 AND s.userID = u.id GROUP BY s.userID order by s.AC DESC,s.ACtime;";
+	$query = "SELECT s.id,s.userID,u.name,u.nickname,u.photoPath,s.AC,s.ACtime,s.lastModify FROM score AS s, user AS u where s.stat=0 and s.probID=$probId AND u.stat = 0 AND s.userID = u.id AND s.AC=1 GROUP BY s.userID order by s.AC DESC,s.ACtime;";
 	return mydb_query_return_double_array($query);
 }
 
